@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import data from "../data.json";
 import "./TopMenu.css";
 
 interface Props {
@@ -23,14 +24,6 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = [
-  "Home",
-  "About",
-  "Skills",
-  "Experience",
-  "Projects",
-  "Contact",
-];
 
 const TopMenu = (props: Props) => {
   const { window } = props;
@@ -51,9 +44,13 @@ const TopMenu = (props: Props) => {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
+        {data.topMenu.sections.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemButton
+              sx={{ textAlign: "center" }}
+              component="a"
+              href={"#" + item.toLowerCase()}
+            >
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -66,8 +63,8 @@ const TopMenu = (props: Props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <AppBar component="nav" className="top-menu">
+    <Box sx={{ display: "flex" }} className="top-menu">
+      <AppBar component="nav" className="appbar-nav">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -92,8 +89,12 @@ const TopMenu = (props: Props) => {
             sx={{ display: { xs: "none", md: "block" } }}
             data-testid="desktop-nav"
           >
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
+            {data.topMenu.sections.map((item) => (
+              <Button
+                key={item}
+                sx={{ color: "#fff" }}
+                href={"#" + item.toLowerCase()}
+              >
                 {item}
               </Button>
             ))}
