@@ -15,19 +15,15 @@ import Button from "@mui/material/Button";
 import data from "../data.json";
 import "./TopMenu.css";
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
+interface TopMenuProps {
+  activeSection: string;
 }
 
 const drawerWidth = 240;
 
-const TopMenu = (props: Props) => {
-  const { window } = props;
+const TopMenu: React.FC<TopMenuProps> = ({ activeSection }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { text, sections } = data.topMenu;
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -51,16 +47,20 @@ const TopMenu = (props: Props) => {
               component="a"
               href={"#" + item.toLowerCase()}
             >
-              <ListItemText primary={item} />
+              <ListItemText
+                primary={item}
+                sx={
+                  activeSection.toLowerCase() === item.toLowerCase()
+                    ? { color: "#f3bc17" }
+                    : {}
+                }
+              />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
     </Box>
   );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }} className="top-menu">
@@ -81,18 +81,23 @@ const TopMenu = (props: Props) => {
             sx={{
               flexGrow: 1,
               display: { xs: "none", md: "block" },
+              color: "#f3bc17",
             }}
           >
-            PK
+            {text}
           </Typography>
           <Box
             sx={{ display: { xs: "none", md: "block" } }}
             data-testid="desktop-nav"
           >
-            {data.topMenu.sections.map((item) => (
+            {sections.map((item) => (
               <Button
                 key={item}
-                sx={{ color: "#fff" }}
+                sx={
+                  activeSection.toLowerCase() === item.toLowerCase()
+                    ? { color: "#f3bc17" }
+                    : { color: "#fff" }
+                }
                 href={"#" + item.toLowerCase()}
               >
                 {item}
@@ -103,7 +108,6 @@ const TopMenu = (props: Props) => {
       </AppBar>
       <nav>
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
@@ -121,7 +125,7 @@ const TopMenu = (props: Props) => {
           {drawer}
         </Drawer>
       </nav>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main">
         <Toolbar />
       </Box>
     </Box>

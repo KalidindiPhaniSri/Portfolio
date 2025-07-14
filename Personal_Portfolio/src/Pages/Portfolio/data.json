@@ -1,7 +1,15 @@
 {
   "topMenu": {
-    "text": "PK",
+    "text": "Phani",
     "icon": "",
     "sections": ["Home", "About", "Skills", "Experience", "Projects", "Contact"]
+  },
+  "home": {
+    "bio": {
+      "intro": "Hello, I am",
+      "name": "Phani Sri Kalidindi",
+      "role": "Full Stack Developer",
+      "text": "Full Stack Developer with 2 years of experience building scalable web apps using React.js, TypeScript, .NET Core, and SQL. Passionate about clean architecture and solving real-world problems."
+    }
   }
 }

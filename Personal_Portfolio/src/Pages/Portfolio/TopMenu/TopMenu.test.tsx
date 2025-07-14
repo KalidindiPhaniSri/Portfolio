@@ -8,22 +8,37 @@ describe("Top Menu", () => {
     render(<TopMenu />);
     expect(screen.getByText(data.topMenu.text)).toBeInTheDocument();
   });
-  it("render all the nav items in desktop mode", () => {
-    render(<TopMenu />);
+
+  it("render all the nav items with href in desktop mode", () => {
     const desktopNav = screen.getByTestId("desktop-nav");
+    render(<TopMenu />);
     data.topMenu.sections.forEach((item) => {
-      expect(within(desktopNav).getByText(item)).toBeInTheDocument();
+      const link = within(desktopNav).getByText(item);
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute("href", `#${item.toLowerCase()}`);
     });
   });
-  it("opens the drawer when menu icon is clicked (mobile)", () => {
+
+  it("opening and closing the drawer ", () => {
     global.innerWidth = 500;
     global.dispatchEvent(new Event("resize"));
+
     render(<TopMenu />);
-    const drawer = screen.getByLabelText("open drawer");
+    const menuButton = screen.getByLabelText("open drawer");
     const mobileNav = screen.getByTestId("mobile-nav");
-    fireEvent.click(drawer);
+
+    expect(menuButton).toBeVisible();
+    fireEvent.click(menuButton);
     data.topMenu.sections.forEach((item) => {
-      expect(within(mobileNav).getByText(item)).toBeInTheDocument();
+      const link = within(mobileNav).getByText(item);
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute("href", `#${item.toLowerCase()}`);
+    });
+    fireEvent.click(menuButton);
+    data.topMenu.sections.forEach((item) => {
+      const link = within(mobileNav).getByText(item);
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute("href", `#${item.toLowerCase()}`);
     });
   });
 });
