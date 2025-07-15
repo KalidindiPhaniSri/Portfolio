@@ -12,7 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import data from "../data.json";
+import data from "./data.json";
 
 interface TopMenuProps {
   activeSection: string;

@@ -1,17 +1,17 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect } from "vitest";
-import TopMenu from "./TopMenu";
-import data from "../testData.json";
+import data from "./testData.json";
+import TopMenu from "../Portfolio/TopMenu";
 
 describe("Top Menu", () => {
   it("renders logo text", () => {
-    render(<TopMenu />);
+    render(<TopMenu activeSection="home" scrolled={false} />);
     expect(screen.getByText(data.topMenu.text)).toBeInTheDocument();
   });
 
   it("render all the nav items with href in desktop mode", () => {
+    render(<TopMenu activeSection="home" scrolled={false} />);
     const desktopNav = screen.getByTestId("desktop-nav");
-    render(<TopMenu />);
     data.topMenu.sections.forEach((item) => {
       const link = within(desktopNav).getByText(item);
       expect(link).toBeInTheDocument();
@@ -23,7 +23,7 @@ describe("Top Menu", () => {
     global.innerWidth = 500;
     global.dispatchEvent(new Event("resize"));
 
-    render(<TopMenu />);
+    render(<TopMenu activeSection="home" scrolled={false} />);
     const menuButton = screen.getByLabelText("open drawer");
     const mobileNav = screen.getByTestId("mobile-nav");
 

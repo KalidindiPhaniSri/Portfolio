@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Home from "./Home/Home";
-import TopMenu from "./TopMenu/TopMenu";
+import Home from "./Home";
+import TopMenu from "./TopMenu";
 import data from "./data.json";
 import "./Portfolio.css";
 

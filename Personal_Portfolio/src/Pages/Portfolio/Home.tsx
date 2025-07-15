@@ -1,7 +1,7 @@
 import { Grid, Slide, Stack, Typography } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
-import Phani from "../../../assets/Phani.jpg";
-import data from "../data.json";
+import Phani from "../../assets/Phani.jpg";
+import data from "./data.json";
 
 interface ContentProps {
   desktopMode: boolean;
