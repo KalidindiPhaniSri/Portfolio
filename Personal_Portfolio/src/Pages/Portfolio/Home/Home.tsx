@@ -1,27 +1,31 @@
-import { Box, Grid, Slide, Stack, Typography } from "@mui/material";
+import { Grid, Slide, Stack, Typography } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 import Phani from "../../../assets/Phani.jpg";
 import data from "../data.json";
-import "./Home.css";
 
-const Image = () => {
+interface ContentProps {
+  desktopMode: boolean;
+}
+
+const Image: React.FC<ContentProps> = ({ desktopMode }) => {
   return (
-    <Slide in={true} direction="left" timeout={1000}>
+    <Slide in={true} direction={desktopMode ? "left" : "up"} timeout={1000}>
       <img
         src={Phani}
         alt="Img"
         height={250}
         width={250}
-        className="phani-img"
+        style={{ borderRadius: "50%" }}
       />
     </Slide>
   );
 };
 
-const Content = () => {
+const Content: React.FC<ContentProps> = ({ desktopMode }) => {
   const { intro, name, role, text } = data.home.bio;
 
   return (
-    <Slide in={true} direction="right" timeout={1000}>
+    <Slide in={true} direction={desktopMode ? "right" : "up"} timeout={1000}>
       <Stack direction="column" gap={3}>
         <Typography variant="h5">{intro}</Typography>
         <Typography variant="h2">{name}</Typography>
@@ -35,32 +39,32 @@ const Content = () => {
 };
 
 const Home = () => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   return (
-    <Grid container sx={{ height: "100%" }}>
-      <Grid
-        size={12}
-        sx={{ display: { xs: "flex", md: "none" } }}
-        className="justify-around-align-center"
-      >
-        <Image />
-      </Grid>
-      <Grid
-        size={12}
-        sx={{ display: { xs: "flex", md: "none" } }}
-        className="justify-around-align-center"
-      >
-        <Content />
-      </Grid>
-      <Box
-        className="justify-around-align-center"
-        sx={{ display: { xs: "none", md: "flex" } }}
-      >
-        <Grid size={6}>
-          <Content />
+    <>
+      {isDesktop ? (
+        <Grid
+          container
+          sx={{ height: "100%" }}
+          justifyContent="space-around"
+          alignItems="center"
+        >
+          <Grid size={6}>
+            <Content desktopMode={isDesktop} />
+          </Grid>
+          <Image desktopMode={isDesktop} />
         </Grid>
-        <Image />
-      </Box>
-    </Grid>
+      ) : (
+        <Stack
+          direction="column"
+          sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
+        >
+          <Image desktopMode={isDesktop} />
+          <Content desktopMode={isDesktop} />
+        </Stack>
+      )}
+    </>
   );
 };
 

@@ -1,3 +1,15 @@
+.top-menu {
+  height: 4rem;
+}
+
+.top-menu .appbar-nav {
+  background-color: inherit !important;
+}
+
+.home {
+  color: white;
+}
+
 section {
   height: calc(100vh - 4rem);
 }

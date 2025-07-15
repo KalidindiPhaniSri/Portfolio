@@ -13,17 +13,22 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import data from "../data.json";
-import "./TopMenu.css";
 
 interface TopMenuProps {
   activeSection: string;
+  scrolled: boolean;
 }
 
 const drawerWidth = 240;
 
-const TopMenu: React.FC<TopMenuProps> = ({ activeSection }) => {
+const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { text, sections } = data.topMenu;
+
+  const scrolledTextColor = scrolled ? { color: "black" } : { color: "#fff" };
+  const scrolledBgColor = scrolled
+    ? { backgroundColor: "#fff", transition: "background-color 0.5s ease" }
+    : {};
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -63,17 +68,24 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection }) => {
   );
 
   return (
-    <Box sx={{ display: "flex" }} className="top-menu">
-      <AppBar component="nav" className="appbar-nav">
+    <Box
+      sx={{ display: "flex", ...scrolledTextColor, ...scrolledBgColor }}
+      className="top-menu"
+    >
+      <AppBar
+        component="nav"
+        className="appbar-nav"
+        sx={{ paddingInline: { xs: "2rem", md: "4rem" } }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: "none" } }}
+            sx={{ mr: 2, display: { md: "none" }, color: "#f3bc17" }}
           >
-            <MenuIcon />
+            <MenuIcon fontSize="large" />
           </IconButton>
           <Typography
             variant="h6"
@@ -96,7 +108,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection }) => {
                 sx={
                   activeSection.toLowerCase() === item.toLowerCase()
                     ? { color: "#f3bc17" }
-                    : { color: "#fff" }
+                    : { ...scrolledTextColor }
                 }
                 href={"#" + item.toLowerCase()}
               >
