@@ -1,7 +1,19 @@
 {
   "topMenu": {
-    "text": "PK",
+    "text": "Phani",
     "icon": "",
     "sections": ["Home", "About", "Skills", "Experience", "Projects", "Contact"]
+  },
+  "home": {
+    "bio": {
+      "intro": "Hello, I am",
+      "name": "Phani Sri Kalidindi",
+      "role": "Full Stack Developer",
+      "text": "Full Stack Developer with 2 years of experience building scalable web apps using React.js, TypeScript, .NET Core, and SQL. Passionate about clean architecture and solving real-world problems."
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "text": "I'm a Full Stack Developer with 2 years of experience building scalable, data-driven web applications. I’ve developed enterprise tools for Walmart, including Supply Chain and Deduction Management systems. I'm skilled in React.js, TypeScript, JavaScript (ES6+), Redux, Material UI, and Kendo UI. I integrate RESTful APIs, optimize performance with lazy loading and code splitting, and implement secure Auth0 authentication. On the backend, I'm familiar with C#, .NET Core, and SQL, and I focus on clean, maintainable code with unit testing. I enjoy solving complex problems and delivering real business value in Agile teams."
   }
 }

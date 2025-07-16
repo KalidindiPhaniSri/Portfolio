@@ -1,15 +1,48 @@
+.bg-img {
+  background-image: url(../../assets/starss.webp);
+  color: white;
+}
 .top-menu {
   height: 4rem;
 }
-
 .top-menu .appbar-nav {
   background-color: inherit !important;
 }
 
 .home {
-  color: white;
+  height: calc(100vh - 4rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home .small-home {
+  justify-content: center;
+  align-items: center;
+}
+.home .desktop-home {
+  justify-content: space-around;
+  align-items: center;
+}
+.home .small-content {
+  align-items: center;
+  justify-content: center;
+}
+.home .small-content .MuiTypography-root {
+  text-align: center;
 }
 
-section {
-  height: calc(100vh - 4rem);
+/* section {
+  margin-block: 3rem;
+} */
+
+.about {
+  background: none;
+  margin-block: 3rem;
+  text-align: center;
+}
+.about .section-header {
+  font-weight: bold;
+}
+.about .section-header span {
+  color: var(--theme-yellow);
 }

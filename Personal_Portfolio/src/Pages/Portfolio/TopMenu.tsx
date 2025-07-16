@@ -83,7 +83,11 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: "none" }, color: "#f3bc17" }}
+            sx={{
+              mr: 2,
+              display: { xs: "block", md: "none" },
+              color: "#f3bc17",
+            }}
           >
             <MenuIcon fontSize="large" />
           </IconButton>

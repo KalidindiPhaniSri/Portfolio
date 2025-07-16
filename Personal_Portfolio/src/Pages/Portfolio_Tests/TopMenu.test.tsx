@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect } from "vitest";
-import data from "./testData.json";
+import data from "./testdata.json";
 import TopMenu from "../Portfolio/TopMenu";
 
 describe("Top Menu", () => {
@@ -25,20 +25,17 @@ describe("Top Menu", () => {
 
     render(<TopMenu activeSection="home" scrolled={false} />);
     const menuButton = screen.getByLabelText("open drawer");
-    const mobileNav = screen.getByTestId("mobile-nav");
+    expect(menuButton).toBeInTheDocument();
 
-    expect(menuButton).toBeVisible();
     fireEvent.click(menuButton);
+    const mobileNav = screen.getByTestId("mobile-nav");
     data.topMenu.sections.forEach((item) => {
-      const link = within(mobileNav).getByText(item);
-      expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute("href", `#${item.toLowerCase()}`);
+      const textNode = within(mobileNav).getByText(item);
+      const anchorNode = textNode.closest("a");
+      expect(textNode).toBeInTheDocument();
+      expect(anchorNode).toHaveAttribute("href", `#${item.toLowerCase()}`);
     });
     fireEvent.click(menuButton);
-    data.topMenu.sections.forEach((item) => {
-      const link = within(mobileNav).getByText(item);
-      expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute("href", `#${item.toLowerCase()}`);
-    });
+    expect(mobileNav).not.toBeVisible();
   });
 });
