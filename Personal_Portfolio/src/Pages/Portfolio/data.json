@@ -1,10 +1,10 @@
 {
   "topMenu": {
     "text": "Phani",
-    "icon": "",
     "sections": ["Home", "About", "Skills", "Experience", "Projects", "Contact"]
   },
   "home": {
+    "imgName": "../assets/home.jpg",
     "bio": {
       "intro": "Hello, I am",
       "name": "Phani Sri Kalidindi",
@@ -14,6 +14,92 @@
   },
   "about": {
     "title": ["About", "Me"],
+    "imgname": "../assets/about.jpg",
     "text": "I'm a Full Stack Developer with 2 years of experience building scalable, data-driven web applications. I’ve developed enterprise tools for Walmart, including Supply Chain and Deduction Management systems. I'm skilled in React.js, TypeScript, JavaScript (ES6+), Redux, Material UI, and Kendo UI. I integrate RESTful APIs, optimize performance with lazy loading and code splitting, and implement secure Auth0 authentication. On the backend, I'm familiar with C#, .NET Core, and SQL, and I focus on clean, maintainable code with unit testing. I enjoy solving complex problems and delivering real business value in Agile teams."
+  },
+  "skills": {
+    "title": ["Tech", "Stack"],
+    "cards": [
+      {
+        "imgName": "../assets/Skills/react.PNG",
+        "name": "React",
+        "delay": 500
+      },
+      {
+        "imgName": "../assets/Skills/js.png",
+        "name": "Javascript",
+        "delay": 650
+      },
+      {
+        "imgName": "../assets/Skills/typescript.png",
+        "name": "Typescript",
+        "delay": 800
+      },
+      {
+        "imgName": "../assets/Skills/redux.png",
+        "name": "Redux",
+        "delay": 950
+      },
+      {
+        "imgName": "../assets/Skills/sql.png",
+        "name": "SQL",
+        "delay": 1100
+      },
+      {
+        "imgName": "../assets/Skills/c sharp.png",
+        "name": "C Sharp",
+        "delay": 1250
+      },
+      {
+        "imgName": "../assets/Skills/dotnetcore.png",
+        "name": "Dotnet Core",
+        "delay": 1400
+      },
+      {
+        "imgName": "../assets/Skills/git.png",
+        "name": "Git",
+        "delay": 1550
+      },
+      {
+        "imgName": "../assets/Skills/html.png",
+        "name": "HTML",
+        "delay": 1700
+      },
+      {
+        "imgName": "../assets/Skills/css.png",
+        "name": "Skills",
+        "delay": 1850
+      },
+      {
+        "imgName": "../assets/Skills/bootstrap.png",
+        "name": "Bootstrap",
+        "delay": 2000
+      },
+      {
+        "imgName": "../assets/Skills/mui.png",
+        "name": "MUI",
+        "delay": 2150
+      },
+      {
+        "imgName": "../assets/Skills/kendo.png",
+        "name": "Kendo UI",
+        "delay": 2300
+      },
+      {
+        "imgName": "../assets/Skills/vitest.png",
+        "name": "Vitest",
+        "delay": 2450
+      },
+      {
+        "imgName": "../assets/Skills/vs code.png",
+        "name": "VS Code",
+        "delay": 2600
+      },
+      {
+        "imgName": "../assets/Skills/vs.png",
+        "name": "Visual Studio",
+        "delay": 2750
+      }
+    ]
   }
 }

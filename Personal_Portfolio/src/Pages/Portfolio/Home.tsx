@@ -11,7 +11,7 @@ import { useTheme, useMediaQuery } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import Phani from "../../assets/Phani.jpg";
+import { Images } from "../../Utils/Helpers";
 import data from "./data.json";
 
 const Image = () => {
@@ -19,7 +19,7 @@ const Image = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const image = (
     <img
-      src={Phani}
+      src={Images[data.home.imgName] ?? ""}
       alt="Phani"
       height={isDesktop ? 250 : 150}
       width={isDesktop ? 250 : 150}

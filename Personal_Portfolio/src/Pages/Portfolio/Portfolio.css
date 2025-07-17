@@ -1,7 +1,15 @@
 .bg-img {
-  background-image: url(../../assets/starss.webp);
+  background-image: url(../../assets/background.webp);
   color: white;
 }
+
+.section-header {
+  font-weight: bold;
+}
+.section-header span {
+  color: var(--theme-yellow);
+}
+
 .top-menu {
   height: 4rem;
 }
@@ -35,14 +43,14 @@
   margin-block: 3rem;
 } */
 
-.about {
-  background: none;
+.about,
+.skills {
   margin-block: 3rem;
   text-align: center;
 }
-.about .section-header {
-  font-weight: bold;
-}
-.about .section-header span {
-  color: var(--theme-yellow);
+
+.skills .card-content {
+  border: var(--border);
+  border-radius: 1rem;
+  box-shadow: var(--card-shadow);
 }

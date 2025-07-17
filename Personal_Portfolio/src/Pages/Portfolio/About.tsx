@@ -1,6 +1,7 @@
 import { Grid, Slide, Stack, Typography, Zoom } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
-import AboutImg from "../../assets/about.jpg";
+import { Images } from "../../Utils/Helpers";
+import { SectionHeader } from "../../Utils/ReusableComponents";
 import data from "./data.json";
 
 interface ImageProps {
@@ -10,7 +11,7 @@ interface ImageProps {
 const Image: React.FC<ImageProps> = ({ desktopMode }) => {
   const Image = (
     <img
-      src={AboutImg}
+      src={Images[data.about.imgname] ?? ""}
       alt="About"
       height={desktopMode ? 250 : 150}
       width={desktopMode ? 250 : 150}
@@ -53,11 +54,10 @@ const About = () => {
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   return (
     <>
-      <Zoom in={true} timeout={1000}>
-        <Typography variant={"h4"} sx={{ mb: 3 }} className="section-header">
-          {data.about.title[0]} <span> {data.about.title[1]}</span>
-        </Typography>
-      </Zoom>
+      <SectionHeader
+        startText={data.about.title[0]}
+        endText={data.about.title[1]}
+      />
       {isDesktop ? (
         <Grid
           container

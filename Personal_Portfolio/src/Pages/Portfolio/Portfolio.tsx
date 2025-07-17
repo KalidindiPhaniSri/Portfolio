@@ -5,6 +5,7 @@ import data from "./data.json";
 import "./Portfolio.css";
 import About from "./About";
 import { Box, Stack } from "@mui/material";
+import Skills from "./Skills";
 
 const Portfolio = () => {
   const navItems = data.topMenu.sections;
@@ -17,7 +18,7 @@ const Portfolio = () => {
         const ele = document.getElementById(section.toLowerCase());
         if (ele) {
           const rect = ele.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 50) {
+          if (rect.top <= 250 && rect.bottom >= 150) {
             setActiveSection(section);
             break;
           }
@@ -58,6 +59,9 @@ const Portfolio = () => {
       >
         <section id="about" className="about">
           <About />
+        </section>
+        <section id="skills" className="skills">
+          <Skills />
         </section>
       </Stack>
     </>

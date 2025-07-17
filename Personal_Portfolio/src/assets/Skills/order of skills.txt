@@ -1,0 +1,18 @@
+react
+javascript
+typescript
+redux
+sql
+c#
+dotnet core
+git
+html
+css
+bootstrap
+mui
+kendo ui
+vitest
+vs code
+vs
+
+
