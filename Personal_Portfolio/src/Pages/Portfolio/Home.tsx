@@ -13,10 +13,21 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { Images } from "../../Utils/Helpers";
 import data from "./data.json";
+import type React from "react";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 
-const Image = () => {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+interface HomeProps {
+  onVisible: () => void;
+}
+
+interface ImageProps {
+  inView: boolean;
+  isDesktop: boolean;
+  uptoTablet?: boolean;
+}
+
+const Image: React.FC<ImageProps> = ({ inView, isDesktop }) => {
   const image = (
     <img
       src={Images[data.home.imgName] ?? ""}
@@ -27,21 +38,17 @@ const Image = () => {
     />
   );
   return isDesktop ? (
-    <Slide in={true} direction="left" timeout={1000}>
+    <Slide in={inView} direction="left" timeout={1000}>
       {image}
     </Slide>
   ) : (
-    <Zoom in={true} timeout={1000}>
+    <Zoom in={inView} timeout={1000}>
       {image}
     </Zoom>
   );
 };
 
-const Content = () => {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-  const uptoTablet = useMediaQuery(theme.breakpoints.between("xs", "md"));
-
+const Content: React.FC<ImageProps> = ({ inView, isDesktop, uptoTablet }) => {
   const { intro, name, role, text } = data.home.bio;
   const className = isDesktop ? "desktop-content" : "small-content";
 
@@ -53,18 +60,18 @@ const Content = () => {
       data-testid="home-content"
       className={className}
     >
-      <Grow in={true} timeout={1000}>
+      <Grow in={inView} timeout={1000}>
         <Typography variant={uptoTablet ? "h6" : "h5"}>{intro}</Typography>
       </Grow>
-      <Grow in={true} timeout={2000}>
+      <Grow in={inView} timeout={2000}>
         <Typography variant={uptoTablet ? "h3" : "h2"}>{name}</Typography>
       </Grow>
-      <Grow in={true} timeout={3000}>
+      <Grow in={inView} timeout={3000}>
         <Typography variant={uptoTablet ? "h5" : "h4"}>{role}</Typography>
       </Grow>
 
       {isDesktop && (
-        <Grow in={true} timeout={4000}>
+        <Grow in={inView} timeout={4000}>
           <Typography variant="subtitle1" sx={{ textAlign: "justify" }}>
             {text}
           </Typography>
@@ -135,11 +142,16 @@ const Icons = () => {
   );
 };
 
-const Home = () => {
+const Home: React.FC<HomeProps> = ({ onVisible }) => {
+  const { ref, inView } = useInView(data.intersectionObserver);
   const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const uptoTablet = useMediaQuery(theme.breakpoints.between("xs", "md"));
+  useEffect(() => {
+    if (inView) onVisible();
+  }, [inView, onVisible]);
   return (
-    <>
+    <section id="home" className="home" ref={ref}>
       {uptoTablet ? (
         <Stack
           direction="column"
@@ -149,19 +161,27 @@ const Home = () => {
           gap={6}
           className="small-home"
         >
-          <Image />
-          <Content />
+          <Image inView={inView} isDesktop={isDesktop} />
+          <Content
+            inView={inView}
+            isDesktop={isDesktop}
+            uptoTablet={uptoTablet}
+          />
         </Stack>
       ) : (
         <Grid container className="desktop-home">
           <Grid size={6}>
-            <Content />
+            <Content
+              inView={inView}
+              isDesktop={isDesktop}
+              uptoTablet={uptoTablet}
+            />
           </Grid>
-          <Image />
+          <Image inView={inView} isDesktop={isDesktop} />
           <Grid size={12}></Grid>
         </Grid>
       )}
-    </>
+    </section>
   );
 };
 

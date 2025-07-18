@@ -11,7 +11,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <Grow in={true} timeout={1000}>
-      <Typography variant={"h4"} sx={{ mb: 3 }} className="section-header">
+      <Typography variant={"h4"} sx={{ my: 3 }} className="section-header">
         {startText} <span> {endText}</span>
       </Typography>
     </Grow>

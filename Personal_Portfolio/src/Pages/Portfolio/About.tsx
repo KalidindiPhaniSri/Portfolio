@@ -3,12 +3,18 @@ import { useTheme, useMediaQuery } from "@mui/material";
 import { Images } from "../../Utils/Helpers";
 import { SectionHeader } from "../../Utils/ReusableComponents";
 import data from "./data.json";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 
+interface AboutProps {
+  onVisible: () => void;
+}
 interface ImageProps {
   desktopMode: boolean;
+  inView: boolean;
 }
 
-const Image: React.FC<ImageProps> = ({ desktopMode }) => {
+const Image: React.FC<ImageProps> = ({ desktopMode, inView }) => {
   const Image = (
     <img
       src={Images[data.about.imgname] ?? ""}
@@ -18,42 +24,50 @@ const Image: React.FC<ImageProps> = ({ desktopMode }) => {
     />
   );
   return desktopMode ? (
-    <Slide in={true} direction="right" timeout={1000}>
+    <Slide in={inView} direction="right" timeout={1000}>
       {Image}
     </Slide>
   ) : (
-    <Zoom in={true} timeout={1000}>
+    <Zoom in={inView} timeout={1000}>
       {Image}
     </Zoom>
   );
 };
 
-const Content: React.FC<ImageProps> = ({ desktopMode }) => {
+const Content: React.FC<ImageProps> = ({ desktopMode, inView }) => {
   const Text = (
     <Typography
-      variant="subtitle1"
-      sx={{ textAlign: "justify", alignItems: "center" }}
+      sx={{
+        textAlign: "justify",
+        alignItems: "center",
+        fontSize: { xs: "0.7rem", sm: "0.8rem", md: "1rem" },
+      }}
       data-testid="about-content"
     >
       {data.about.text}
     </Typography>
   );
   return desktopMode ? (
-    <Slide in={true} direction="left" timeout={1000}>
+    <Slide in={inView} direction="left" timeout={1000}>
       {Text}
     </Slide>
   ) : (
-    <Zoom in={true} timeout={1000}>
+    <Zoom in={inView} timeout={1000}>
       {Text}
     </Zoom>
   );
 };
 
-const About = () => {
+const About: React.FC<AboutProps> = ({ onVisible }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  const { ref, inView } = useInView(data.intersectionObserver);
+  useEffect(() => {
+    if (inView) onVisible();
+  }, [inView, onVisible]);
+
   return (
-    <>
+    <section id="about" className="about" ref={ref}>
       <SectionHeader
         startText={data.about.title[0]}
         endText={data.about.title[1]}
@@ -65,9 +79,9 @@ const About = () => {
           justifyContent="space-around"
           alignItems="center"
         >
-          <Image desktopMode={isDesktop} />
+          <Image desktopMode={isDesktop} inView={inView} />
           <Grid size={6}>
-            <Content desktopMode={isDesktop} />
+            <Content desktopMode={isDesktop} inView={inView} />
           </Grid>
         </Grid>
       ) : (
@@ -76,11 +90,11 @@ const About = () => {
           sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
           gap={6}
         >
-          <Image desktopMode={isDesktop} />
-          <Content desktopMode={isDesktop} />
+          <Image desktopMode={isDesktop} inView={inView} />
+          <Content desktopMode={isDesktop} inView={inView} />
         </Stack>
       )}
-    </>
+    </section>
   );
 };
 

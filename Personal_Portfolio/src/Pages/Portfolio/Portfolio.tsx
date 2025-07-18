@@ -6,6 +6,7 @@ import "./Portfolio.css";
 import About from "./About";
 import { Box, Stack } from "@mui/material";
 import Skills from "./Skills";
+import Experience from "./Experience";
 
 const Portfolio = () => {
   const navItems = data.topMenu.sections;
@@ -14,16 +15,6 @@ const Portfolio = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      for (const section of navItems) {
-        const ele = document.getElementById(section.toLowerCase());
-        if (ele) {
-          const rect = ele.getBoundingClientRect();
-          if (rect.top <= 250 && rect.bottom >= 150) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
@@ -42,12 +33,11 @@ const Portfolio = () => {
             xs: "4rem",
             md: "6rem",
           },
+          mb: 3,
         }}
       >
         <TopMenu activeSection={activeSection} scrolled={scrolled} />
-        <section id="home" className="home">
-          <Home />
-        </section>
+        <Home onVisible={() => setActiveSection("home")} />
       </Box>
       <Stack
         sx={{
@@ -55,14 +45,12 @@ const Portfolio = () => {
             xs: "4rem",
             md: "6rem",
           },
+          mb: 3,
         }}
       >
-        <section id="about" className="about">
-          <About />
-        </section>
-        <section id="skills" className="skills">
-          <Skills />
-        </section>
+        <About onVisible={() => setActiveSection("about")} />
+        <Skills onVisible={() => setActiveSection("skills")} />
+        <Experience onVisible={() => setActiveSection("experience")} />
       </Stack>
     </>
   );

@@ -1,4 +1,5 @@
 {
+  "intersectionObserver": { "threshold": 0.9, "triggerOnce": false },
   "topMenu": {
     "text": "Phani",
     "sections": ["Home", "About", "Skills", "Experience", "Projects", "Contact"]
@@ -15,10 +16,10 @@
   "about": {
     "title": ["About", "Me"],
     "imgname": "../assets/about.jpg",
-    "text": "I'm a Full Stack Developer with 2 years of experience building scalable, data-driven web applications. I’ve developed enterprise tools for Walmart, including Supply Chain and Deduction Management systems. I'm skilled in React.js, TypeScript, JavaScript (ES6+), Redux, Material UI, and Kendo UI. I integrate RESTful APIs, optimize performance with lazy loading and code splitting, and implement secure Auth0 authentication. On the backend, I'm familiar with C#, .NET Core, and SQL, and I focus on clean, maintainable code with unit testing. I enjoy solving complex problems and delivering real business value in Agile teams."
+    "text": "I'm a Full Stack Developer with 2 years of experience building interactive, scalable, and data-driven web applications. I've developed enterprise tools for Walmart, including a Supply Chain Management System and a Deduction Management Tool. I'm proficient in React.js, TypeScript, JavaScript (ES6+), Redux, and modern UI libraries like Material UI and Kendo UI. I specialize in integrating RESTful APIs, optimizing performance with techniques like lazy loading and code splitting, and implementing secure authentication using Auth0. On the backend, I have experience with C#, .NET Core, and SQL, and I focus on writing clean, maintainable code. I'm also experienced with unit testing to ensure code quality and reliability. I enjoy solving complex problems, collaborating in Agile teams, and building solutions that deliver real business value."
   },
   "skills": {
-    "title": ["Tech", "Stack"],
+    "title": ["My", "Skills"],
     "cards": [
       {
         "imgName": "../assets/Skills/react.PNG",
@@ -67,7 +68,7 @@
       },
       {
         "imgName": "../assets/Skills/css.png",
-        "name": "Skills",
+        "name": "CSS",
         "delay": 1850
       },
       {
