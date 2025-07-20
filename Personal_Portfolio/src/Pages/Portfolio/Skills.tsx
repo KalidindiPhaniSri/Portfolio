@@ -1,13 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Box,
-  Grid,
-  Grow,
-  Typography,
-  useMediaQuery,
-  useTheme,
-  Zoom,
-} from "@mui/material";
+import { Box, Grid, Typography, Zoom } from "@mui/material";
 import { Images } from "../../Utils/Helpers";
 import data from "./data.json";
 import { SectionHeader } from "../../Utils/ReusableComponents";
@@ -24,8 +16,6 @@ interface TilesProps {
 }
 
 const Tiles: React.FC<TilesProps> = ({ iconUrl, name, delay, inView }) => {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const Cards = (
     <Grid
       size={{ xs: 4, sm: 3, md: 2, lg: 1.5 }}
@@ -40,15 +30,21 @@ const Tiles: React.FC<TilesProps> = ({ iconUrl, name, delay, inView }) => {
       </Typography>
     </Grid>
   );
-  return isDesktop ? (
-    <Grow in={inView} timeout={delay}>
-      {Cards}
-    </Grow>
-  ) : (
+  return (
     <Zoom in={inView} timeout={delay}>
       {Cards}
     </Zoom>
   );
+
+  // return isDesktop ? (
+  //   <Grow in={inView} timeout={delay}>
+  //     {Cards}
+  //   </Grow>
+  // ) : (
+  //   <Zoom in={inView} timeout={delay}>
+  //     {Cards}
+  //   </Zoom>
+  // );
 };
 
 const Skills: React.FC<SkillsProps> = ({ onVisible }) => {

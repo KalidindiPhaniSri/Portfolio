@@ -42,10 +42,11 @@ const Portfolio = () => {
       <Stack
         sx={{
           paddingInline: {
-            xs: "4rem",
-            md: "6rem",
+            xs: "3rem",
+            sm: "4rem",
+            md: "5rem",
+            lg: "6rem",
           },
-          mb: 3,
         }}
       >
         <About onVisible={() => setActiveSection("about")} />

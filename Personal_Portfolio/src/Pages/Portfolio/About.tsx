@@ -88,7 +88,7 @@ const About: React.FC<AboutProps> = ({ onVisible }) => {
         <Stack
           direction="column"
           sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
-          gap={6}
+          gap={2}
         >
           <Image desktopMode={isDesktop} inView={inView} />
           <Content desktopMode={isDesktop} inView={inView} />

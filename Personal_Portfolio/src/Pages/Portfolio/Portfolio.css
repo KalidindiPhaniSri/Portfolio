@@ -39,18 +39,24 @@
   text-align: center;
 }
 
-/* section {
-  margin-block: 3rem;
-} */
-
 .about,
-.skills {
-  /* margin-top: 3rem; */
+.skills,
+.experience {
   text-align: center;
 }
 
-.skills .card-content {
+.skills .card-content,
+.experience .card-content {
   border: var(--border);
   border-radius: 1rem;
   box-shadow: var(--card-shadow);
 }
+.experience .card-content {
+  align-items: center;
+}
+.experience .sm-chip {
+  font-size: 0.6rem;
+}
+/* .experience .mui-chip {
+  width: 8rem;
+} */
