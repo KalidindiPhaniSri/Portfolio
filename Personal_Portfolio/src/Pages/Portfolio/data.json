@@ -115,13 +115,21 @@
         "duration": "October 2024 - Present",
         "text": "Took ownership of the front-end development for an order optimization tool that managed order flows from  vendor DCs to Walmart stores and  distribution centers. Designed scalable UI components using React.js, TypeScript, and Redux, optimizing performance with lazy loading, virtual scrolling, caching, and versioning. Integrated REST APIs for real-time updates and implemented secure authentication using Auth0. Collaborated with senior developers and the tech lead to shape the project architecture, refine API responses, and ensure a maintainable, high-quality product.",
         "tech": [
-          "React",
-          "TypeScript",
-          "Redux",
-          "ASP.NET Core",
-          "SQL Server",
-          "MUI",
-          "Git"
+          { "icon": "../assets/Skills/react.PNG", "tooltip": "React" },
+          {
+            "icon": "../assets/Skills/typescript.png",
+            "tooltip": "Typescript"
+          },
+          { "icon": "../assets/Skills/redux.png", "tooltip": "Redux" },
+          {
+            "icon": "../assets/Skills/dotnetcore.png",
+            "tooltip": "Asp.Net Core"
+          },
+          { "icon": "../assets/Skills/sql.png", "tooltip": "SQL" },
+          { "icon": "../assets/Skills/oAuth.png", "tooltip": "OAuth 2.0" },
+          { "icon": "../assets/Skills/kendo.png", "tooltip": "Kendo" },
+          { "icon": "../assets/Skills/mui.png", "tooltip": "MUI" },
+          { "icon": "../assets/Skills/git.png", "tooltip": "Git" }
         ]
       },
       {
@@ -133,28 +141,42 @@
         "duration": "February 2024 - Present",
         "text": "Designed and developed a tool using Tesseract OCR and C# to extract data from scanned PODs, reducing manual effort and improving accuracy. Built a grid-based document management interface with advanced search for efficient upload, retrieval, and management. Created interactive dashboards with charts and KPIs for real-time deduction tracking and insights. Collaborated with the team to ensure seamless development and consistent UI/UX across the application.",
         "tech": [
-          "React",
-          "Redux",
-          "ASP.NET Core",
-          "SQL Server",
-          "Bootstrap",
-          "TFS"
+          { "icon": "../assets/Skills/react.PNG", "tooltip": "React" },
+          { "icon": "../assets/Skills/redux.png", "tooltip": "Redux" },
+          {
+            "icon": "../assets/Skills/dotnetcore.png",
+            "tooltip": "Asp.Net Core"
+          },
+          { "icon": "../assets/Skills/sql.png", "tooltip": "SQL" },
+          { "icon": "../assets/Skills/oAuth.png", "tooltip": "OAuth 2.0" },
+          { "icon": "../assets/Skills/kendo.png", "tooltip": "Kendo" },
+          { "icon": "../assets/Skills/bootstrap.png", "tooltip": "Bootstrap" },
+          {
+            "icon": "../assets/Skills/react-bootstrap.png",
+            "tooltip": "React Bootstrap"
+          },
+          { "icon": "../assets/Skills/vs.png", "tooltip": "TFS" }
         ]
       },
       {
         "title": "Internship Project",
         "image": "../assets/Experience/intern.png",
         "role": "Software Intern",
-
         "company": "Inventiz",
         "duration": "August 2023 - January 2024",
         "text": "Acquired full-stack development skills in React.js, JavaScript, Redux, Kendo UI, C#, .NET Core, and SQL. Built sample web applications with CRUD operations, UI design, and state management. Gained hands-on experience writing SQL queries and integrating backend services using .NET Core. Applied practical knowledge to deliver end-to-end solutions while demonstrating strong problem-solving skills, adaptability, and effective collaboration.",
         "tech": [
-          "React",
-          "Javascript",
-          "ASP.NET Web API",
-          "SQL Server",
-          "Bootstrap"
+          { "icon": "../assets/Skills/react.PNG", "tooltip": "React" },
+          { "icon": "../assets/Skills/js.png", "tooltip": "Javascript" },
+          {
+            "icon": "../assets/Skills/dotnet webapi.png",
+            "tooltip": "Asp.Net Web Api"
+          },
+          { "icon": "../assets/Skills/sql.png", "tooltip": "SQL" },
+          { "icon": "../assets/Skills/bootstrap.png", "tooltip": "Bootstrap" },
+          { "icon": "../assets/Skills/kendo.png", "tooltip": "Kendo" },
+          { "icon": "../assets/Skills/html.png", "tooltip": "HTML" },
+          { "icon": "../assets/Skills/css.png", "tooltip": "CSS" }
         ]
       }
     ]

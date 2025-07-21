@@ -48,7 +48,7 @@
 .skills .card-content,
 .experience .card-content {
   border: var(--border);
-  border-radius: 1rem;
+  /* border-radius: 0.5rem; */
   box-shadow: var(--card-shadow);
 }
 .experience .card-content {

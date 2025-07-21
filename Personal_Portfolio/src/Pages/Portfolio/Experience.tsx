@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import data from "./data.json";
 import { useInView } from "react-intersection-observer";
 import {
-  Chip,
   createTheme,
   Grid,
   Stack,
   ThemeProvider,
+  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -35,7 +35,7 @@ interface ContentPrps {
   desktopMode: boolean;
   inView: boolean;
   text: string;
-  tech: string[];
+  tech: { icon: string; tooltip: string }[];
 }
 
 const baseTheme = createTheme();
@@ -100,36 +100,32 @@ const Content: React.FC<ContentPrps> = ({
   tech,
 }) => {
   const Text = (
-    <Stack direction="column" gap={{ xs: 2, md: 3 }}>
+    <Stack
+      direction="column"
+      gap={{ xs: 2, md: 3 }}
+      data-testid="experience-content"
+    >
       <Typography
         sx={{
           textAlign: "justify",
           alignItems: "center",
           fontSize: { xs: "0.7rem", sm: "0.8rem", md: "1rem" },
         }}
-        data-testid="about-content"
       >
         {text}
       </Typography>
-      <Stack direction="row" flexWrap={"wrap"} gap={0.5}>
+      <Stack direction="row" flexWrap={"wrap"} gap={{ xs: 2, md: 3 }}>
         {tech.map((skill, ind) => {
           return (
-            <Chip
-              label={skill}
-              color="warning"
-              variant="outlined"
-              key={ind}
-              className={desktopMode ? "lg-chip" : "sm-chip"}
-              size={desktopMode ? "medium" : "small"}
-              sx={{
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  backgroundColor: (theme) => theme.palette.warning.main,
-                  color: "#fff",
-                  borderColor: "transparent",
-                },
-              }}
-            />
+            <Tooltip title={skill.tooltip} placement="top" arrow>
+              <img
+                src={Images[skill.icon] ?? ""}
+                alt={skill.tooltip}
+                height={desktopMode ? 25 : 15}
+                width={desktopMode ? 25 : 15}
+                key={ind}
+              />
+            </Tooltip>
           );
         })}
       </Stack>
@@ -173,7 +169,7 @@ const Experience: React.FC<ExperienceProps> = ({ onVisible }) => {
                   data={item}
                 />
               </Grid>
-              <Grid size={{ xs: 12, md: 8, lg: 9 }}>
+              <Grid size={{ xs: 12, md: 6, lg: 6 }}>
                 <Content
                   desktopMode={isDesktop}
                   inView={inView}
