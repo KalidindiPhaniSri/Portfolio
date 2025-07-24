@@ -1,60 +1,70 @@
-import { Grid, Slide, Stack, Typography, Zoom } from "@mui/material";
+import { Grid, Grow, Stack } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
-import { Images } from "../../Utils/Helpers";
-import { SectionHeader } from "../../Utils/ReusableComponents";
+import { SectionHeader, TextBlock } from "../../Utils/ReusableComponents";
 import data from "./data.json";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { Images } from "../../Utils/Helpers";
 
 interface AboutProps {
   onVisible: () => void;
 }
-interface ImageProps {
-  desktopMode: boolean;
-  inView: boolean;
+interface AboutCardProps {
+  desktopMode?: boolean;
+  inView?: boolean;
 }
 
-const Image: React.FC<ImageProps> = ({ desktopMode, inView }) => {
-  const Image = (
-    <img
-      src={Images[data.about.imgname] ?? ""}
-      alt="About"
-      height={desktopMode ? 250 : 150}
-      width={desktopMode ? 250 : 150}
-    />
-  );
-  return desktopMode ? (
-    <Slide in={inView} direction="right" timeout={1000}>
-      {Image}
-    </Slide>
-  ) : (
-    <Zoom in={inView} timeout={1000}>
-      {Image}
-    </Zoom>
+const AboutCard: React.FC<AboutCardProps> = ({ desktopMode, inView }) => {
+  const { header, headerText, tiles } = data.about.card;
+  return (
+    <Grow in={inView} timeout={1000}>
+      <Stack
+        className="about-card"
+        sx={{ p: { xs: 2, sm: 3, md: 4, lg: 5 } }}
+        gap={{ xs: 2, sm: 3, md: 4, lg: 5 }}
+      >
+        <TextBlock size="lg" fontWeight="bold" text={header} />
+        <TextBlock size="lg" fontWeight="bold" text={headerText} />
+        <Grid container spacing={{ xs: 1.5, md: 3 }}>
+          {tiles.map(({ icon, header, headerText }) => {
+            return (
+              <Grow in={inView} timeout={2000}>
+                <Grid size={6} className="tile" sx={{ p: { xs: 1, md: 1.5 } }}>
+                  <img
+                    src={Images[icon] ?? ""}
+                    alt={header}
+                    height={desktopMode ? 40 : 20}
+                    width={desktopMode ? 40 : 20}
+                  />
+                  <TextBlock size="md" fontWeight="bold" text={header} />
+                  <TextBlock size="sm" text={headerText} />
+                </Grid>
+              </Grow>
+            );
+          })}
+        </Grid>
+      </Stack>
+    </Grow>
   );
 };
 
-const Content: React.FC<ImageProps> = ({ desktopMode, inView }) => {
-  const Text = (
-    <Typography
-      sx={{
-        textAlign: "justify",
-        alignItems: "center",
-        fontSize: { xs: "0.7rem", sm: "0.8rem", md: "1rem" },
-      }}
-      data-testid="about-content"
+const Intro: React.FC<AboutCardProps> = ({ inView }) => {
+  return (
+    <Stack
+      direction="column"
+      gap={{ xs: 1, sm: 1.5, md: 2 }}
+      data-testid="about-intro"
     >
-      {data.about.text}
-    </Typography>
-  );
-  return desktopMode ? (
-    <Slide in={inView} direction="left" timeout={1000}>
-      {Text}
-    </Slide>
-  ) : (
-    <Zoom in={inView} timeout={1000}>
-      {Text}
-    </Zoom>
+      {data.about.intro.map(({ text, delay }) => {
+        return (
+          <Grow in={inView} timeout={delay}>
+            <div>
+              <TextBlock size="lg" textAlign="justify" text={text} />
+            </div>
+          </Grow>
+        );
+      })}
+    </Stack>
   );
 };
 
@@ -78,21 +88,30 @@ const About: React.FC<AboutProps> = ({ onVisible }) => {
           sx={{ height: "100%" }}
           justifyContent="space-around"
           alignItems="center"
+          spacing={3}
         >
-          <Image desktopMode={isDesktop} inView={inView} />
-          <Grid size={6}>
-            <Content desktopMode={isDesktop} inView={inView} />
+          <Grid size={7}>
+            <Intro inView={inView} />
+          </Grid>
+          <Grid size={5}>
+            <AboutCard desktopMode={isDesktop} inView={inView} />
           </Grid>
         </Grid>
       ) : (
-        <Stack
-          direction="column"
-          sx={{ display: { xs: "flex", md: "none" }, alignItems: "center" }}
-          gap={2}
+        <Grid
+          container
+          sx={{ height: "100%" }}
+          justifyContent="space-around"
+          alignItems="center"
+          spacing={3}
         >
-          <Image desktopMode={isDesktop} inView={inView} />
-          <Content desktopMode={isDesktop} inView={inView} />
-        </Stack>
+          <Grid size={8}>
+            <AboutCard desktopMode={isDesktop} inView={inView} />
+          </Grid>
+          <Grid size={12}>
+            <Intro inView={inView} />
+          </Grid>
+        </Grid>
       )}
     </section>
   );

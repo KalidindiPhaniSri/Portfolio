@@ -39,24 +39,64 @@
   text-align: center;
 }
 
+.about .about-card {
+  background-color: rgb(17 17 17);
+  border: 1px solid rgb(51 51 51);
+  color: white;
+  border-radius: 1.5rem;
+}
+.about .about-card .tile {
+  background-color: rgb(26 26 26);
+  border: 1px solid rgb(51 51 51);
+  border-radius: 1rem;
+  text-align: left;
+}
+
 .about,
 .skills,
 .experience {
   text-align: center;
 }
 
-.skills .card-content,
-.experience .card-content {
-  border: var(--border);
-  /* border-radius: 0.5rem; */
-  box-shadow: var(--card-shadow);
+.skills .card-content {
+  background-color: white;
+  border-bottom: 2px solid var(--theme-yellow);
 }
-.experience .card-content {
-  align-items: center;
+.skills .card-content .skill-name {
+  text-wrap-mode: nowrap;
+}
+.experience .header-section {
+  justify-content: space-between;
 }
 .experience .sm-chip {
   font-size: 0.6rem;
 }
-/* .experience .mui-chip {
-  width: 8rem;
-} */
+.skills {
+  background-color: var(--theme-alternate-bg);
+}
+.about,
+.skills,
+.experience {
+  padding: 3rem;
+}
+@media (min-width: 600px) {
+  .about,
+  .skills,
+  .experience {
+    padding-inline: 4rem;
+  }
+}
+@media (min-width: 900px) {
+  .about,
+  .skills,
+  .experience {
+    padding-inline: 5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .about,
+  .skills,
+  .experience {
+    padding-inline: 6rem;
+  }
+}

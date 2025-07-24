@@ -1,12 +1,4 @@
-import {
-  Grid,
-  Grow,
-  IconButton,
-  Slide,
-  Stack,
-  Typography,
-  Zoom,
-} from "@mui/material";
+import { Grid, Grow, IconButton, Stack, Typography, Zoom } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -24,8 +16,10 @@ interface HomeProps {
 interface ImageProps {
   inView: boolean;
   isDesktop: boolean;
-  uptoTablet?: boolean;
 }
+type IconsProps = {
+  inView: boolean;
+};
 
 const Image: React.FC<ImageProps> = ({ inView, isDesktop }) => {
   const image = (
@@ -37,37 +31,32 @@ const Image: React.FC<ImageProps> = ({ inView, isDesktop }) => {
       style={{ borderRadius: "50%" }}
     />
   );
-  return isDesktop ? (
-    <Slide in={inView} direction="left" timeout={1000}>
-      {image}
-    </Slide>
-  ) : (
-    <Zoom in={inView} timeout={1000}>
+  return (
+    <Zoom in={inView} timeout={2000}>
       {image}
     </Zoom>
   );
 };
 
-const Content: React.FC<ImageProps> = ({ inView, isDesktop, uptoTablet }) => {
+const Content: React.FC<ImageProps> = ({ inView, isDesktop }) => {
   const { intro, name, role, text } = data.home.bio;
   const className = isDesktop ? "desktop-content" : "small-content";
 
   return (
-    // <Slide in={true} direction={isDesktop ? "right" : "up"} timeout={1000}>
     <Stack
       direction="column"
-      gap={uptoTablet ? 3 : 2}
+      gap={{ xs: 2, md: 3 }}
       data-testid="home-content"
       className={className}
     >
       <Grow in={inView} timeout={1000}>
-        <Typography variant={uptoTablet ? "h6" : "h5"}>{intro}</Typography>
+        <Typography variant={isDesktop ? "h5" : "h6"}>{intro}</Typography>
       </Grow>
       <Grow in={inView} timeout={2000}>
-        <Typography variant={uptoTablet ? "h3" : "h2"}>{name}</Typography>
+        <Typography variant={isDesktop ? "h2" : "h3"}>{name}</Typography>
       </Grow>
       <Grow in={inView} timeout={3000}>
-        <Typography variant={uptoTablet ? "h5" : "h4"}>{role}</Typography>
+        <Typography variant={isDesktop ? "h4" : "h5"}>{role}</Typography>
       </Grow>
 
       {isDesktop && (
@@ -77,13 +66,12 @@ const Content: React.FC<ImageProps> = ({ inView, isDesktop, uptoTablet }) => {
           </Typography>
         </Grow>
       )}
-      <Icons />
+      <Icons inView={inView} />
     </Stack>
-    // </Slide>
   );
 };
 
-const Icons = () => {
+const Icons: React.FC<IconsProps> = ({ inView }) => {
   return (
     <Stack direction="row" gap={3}>
       <Tooltip
@@ -100,7 +88,7 @@ const Icons = () => {
         }}
         placement="top"
       >
-        <Grow in={true} timeout={5000}>
+        <Grow in={inView} timeout={5000}>
           <IconButton
             component="a"
             href="https://www.linkedin.com/in/phani-sri-kalidindi-5111a2254/"
@@ -126,7 +114,7 @@ const Icons = () => {
           },
         }}
       >
-        <Grow in={true} timeout={5000}>
+        <Grow in={inView} timeout={5000}>
           <IconButton
             component="a"
             href="https://github.com/KalidindiPhaniSri"
@@ -146,13 +134,19 @@ const Home: React.FC<HomeProps> = ({ onVisible }) => {
   const { ref, inView } = useInView(data.intersectionObserver);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-  const uptoTablet = useMediaQuery(theme.breakpoints.between("xs", "md"));
   useEffect(() => {
     if (inView) onVisible();
   }, [inView, onVisible]);
   return (
     <section id="home" className="home" ref={ref}>
-      {uptoTablet ? (
+      {isDesktop ? (
+        <Grid container className="desktop-home">
+          <Grid size={6}>
+            <Content inView={inView} isDesktop={isDesktop} />
+          </Grid>
+          <Image inView={inView} isDesktop={isDesktop} />
+        </Grid>
+      ) : (
         <Stack
           direction="column"
           sx={{
@@ -162,24 +156,8 @@ const Home: React.FC<HomeProps> = ({ onVisible }) => {
           className="small-home"
         >
           <Image inView={inView} isDesktop={isDesktop} />
-          <Content
-            inView={inView}
-            isDesktop={isDesktop}
-            uptoTablet={uptoTablet}
-          />
+          <Content inView={inView} isDesktop={isDesktop} />
         </Stack>
-      ) : (
-        <Grid container className="desktop-home">
-          <Grid size={6}>
-            <Content
-              inView={inView}
-              isDesktop={isDesktop}
-              uptoTablet={uptoTablet}
-            />
-          </Grid>
-          <Image inView={inView} isDesktop={isDesktop} />
-          <Grid size={12}></Grid>
-        </Grid>
       )}
     </section>
   );

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Box, Grid, Typography, Zoom } from "@mui/material";
+import { Box, Grid, Zoom } from "@mui/material";
 import { Images } from "../../Utils/Helpers";
 import data from "./data.json";
-import { SectionHeader } from "../../Utils/ReusableComponents";
+import { SectionHeader, TextBlock } from "../../Utils/ReusableComponents";
 import { useInView } from "react-intersection-observer";
 
 interface SkillsProps {
@@ -18,16 +18,14 @@ interface TilesProps {
 const Tiles: React.FC<TilesProps> = ({ iconUrl, name, delay, inView }) => {
   const Cards = (
     <Grid
-      size={{ xs: 4, sm: 3, md: 2, lg: 1.5 }}
+      size={{ xs: 3, sm: 2.5, md: 2, lg: 1.5 }}
       className="card-content"
-      sx={{ p: { xs: 0.5, md: 1 } }}
+      sx={{ p: { xs: 0.25, md: 0.5 } }}
     >
       <Box sx={{ py: { xs: 0.5, md: 1 } }}>
         <img src={Images[iconUrl] ?? ""} alt={name} height={50} width={50} />
       </Box>
-      <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem", md: "1rem" } }}>
-        {name}
-      </Typography>
+      <TextBlock className="skill-name" text={name} size="lg" />
     </Grid>
   );
   return (
@@ -35,16 +33,6 @@ const Tiles: React.FC<TilesProps> = ({ iconUrl, name, delay, inView }) => {
       {Cards}
     </Zoom>
   );
-
-  // return isDesktop ? (
-  //   <Grow in={inView} timeout={delay}>
-  //     {Cards}
-  //   </Grow>
-  // ) : (
-  //   <Zoom in={inView} timeout={delay}>
-  //     {Cards}
-  //   </Zoom>
-  // );
 };
 
 const Skills: React.FC<SkillsProps> = ({ onVisible }) => {

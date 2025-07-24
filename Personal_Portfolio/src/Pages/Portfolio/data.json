@@ -1,5 +1,5 @@
 {
-  "intersectionObserver": { "threshold": 0.3, "triggerOnce": false },
+  "intersectionObserver": { "threshold": 0.4, "triggerOnce": false },
   "topMenu": {
     "text": "Phani",
     "sections": ["Home", "About", "Skills", "Experience", "Projects", "Contact"]
@@ -10,13 +10,46 @@
       "intro": "Hello, I am",
       "name": "Phani Sri Kalidindi",
       "role": "Full Stack Developer",
-      "text": "Full Stack Developer with 2 years of experience building scalable web apps using React.js, TypeScript, .NET Core, and SQL. Passionate about clean architecture and solving real-world problems."
+      "text": "I'm a Full Stack Developer driven by a passion for building thoughtful, scalable solutions that blend functionality with clean design. I enjoy turning complex problems into intuitive digital experiences."
     }
   },
   "about": {
     "title": ["About", "Me"],
-    "imgname": "../assets/about.jpg",
-    "text": "I'm a Full Stack Developer with 2 years of experience building interactive, scalable, and data-driven web applications. I've developed enterprise tools for Walmart, including a Supply Chain Management System and a Deduction Management Tool. I'm proficient in React.js, TypeScript, JavaScript (ES6+), Redux, and modern UI libraries like Material UI and Kendo UI. I specialize in integrating RESTful APIs, optimizing performance with techniques like lazy loading and code splitting, and implementing secure authentication using Auth0. On the backend, I have experience with C#, .NET Core, and SQL, and I focus on writing clean, maintainable code. I'm also experienced with unit testing to ensure code quality and reliability. I enjoy solving complex problems, collaborating in Agile teams, and building solutions that deliver real business value."
+    "imgname": "../assets/home.jpg",
+    "intro": [
+      {
+        "text": "I'm a Full Stack Developer with 2 years of experience building enterprise-grade web applications that balance performance, scalability, and intuitive design.",
+        "delay": 1000
+      },
+      {
+        "text": "At Inventiz, I've contributed to internal tools for Walmart — including a Supply Chain Management System and a Deduction Management Tool. I worked across the stack, developing robust frontend architectures, integrating REST APIs, and ensuring smooth data flow between services.",
+        "delay": 2000
+      },
+      {
+        "text": "On the frontend, I specialize in React.js, TypeScript, Redux, and modern UI libraries like Material UI and Kendo UI. My work focuses on responsiveness, maintainability, and performance — using techniques like lazy loading, virtual scrolling, and unit testing for long-term reliability.",
+        "delay": 3000
+      },
+      {
+        "text": "On the backend, I've worked with C#, .NET Core, and SQL, building secure APIs and implementing authentication flows using tools like Auth0. I enjoy working in Agile teams and translating technical goals into real-world impact.",
+        "delay": 4000
+      }
+    ],
+    "card": {
+      "header": "👋 Welcome to my space.",
+      "headerText": "Discover my work and see how I turn challenges into impactful web experiences.",
+      "tiles": [
+        {
+          "icon": "../assets/About/web dev.png",
+          "header": "Web Development",
+          "headerText": "Developing seamless, responsive websites that deliver."
+        },
+        {
+          "icon": "../assets/About/clean code.png",
+          "header": "Code Quality",
+          "headerText": "Writing maintainable, testable code with a focus on long-term reliability."
+        }
+      ]
+    }
   },
   "skills": {
     "title": ["My", "Skills"],
@@ -104,10 +137,11 @@
     ]
   },
   "experience": {
-    "title": ["Experience", ""],
+    "title": ["Work", "Experience"],
     "sections": [
       {
-        "title": "Supply Chain SSO",
+        "id": 1,
+        "title": " Supply Chain Store-Specific Orders (Walmart)",
         "titleTooltip": "Supply Chain Store-Specific Orders (Walmart)",
         "image": "../assets/Experience/sso.png",
         "role": "Software Engineer",
@@ -133,7 +167,8 @@
         ]
       },
       {
-        "title": "Deductions",
+        "id": 2,
+        "title": "Deduction Management System (Walmart)",
         "titleTooltip": "Deduction Management System (Walmart)",
         "image": "../assets/Experience/deductions.PNG",
         "role": "Software Engineer",
@@ -159,9 +194,10 @@
         ]
       },
       {
-        "title": "Internship Project",
+        "id": 3,
+        "title": "Full-Stack Development Training Project",
         "image": "../assets/Experience/intern.png",
-        "role": "Software Intern",
+        "role": "Software Developer Intern",
         "company": "Inventiz",
         "duration": "August 2023 - January 2024",
         "text": "Acquired full-stack development skills in React.js, JavaScript, Redux, Kendo UI, C#, .NET Core, and SQL. Built sample web applications with CRUD operations, UI design, and state management. Gained hands-on experience writing SQL queries and integrating backend services using .NET Core. Applied practical knowledge to deliver end-to-end solutions while demonstrating strong problem-solving skills, adaptability, and effective collaboration.",

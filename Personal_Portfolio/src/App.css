@@ -1,6 +1,7 @@
 :root {
   /* --theme-yellow: #f3bc17; */
   --theme-yellow: #ff9800;
+  --theme-alternate-bg: #f7f7f7;
   --card-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
   --border-color: #dee2e6;
   --border: 1px solid #dee2e6;
