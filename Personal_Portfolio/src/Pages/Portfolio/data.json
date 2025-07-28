@@ -141,12 +141,13 @@
     "sections": [
       {
         "id": 1,
-        "title": " Supply Chain Store-Specific Orders (Walmart)",
+        "title": " Supply Chain SSO",
         "titleTooltip": "Supply Chain Store-Specific Orders (Walmart)",
         "image": "../assets/Experience/sso.png",
         "role": "Software Engineer",
         "company": "Inventiz",
         "duration": "October 2024 - Present",
+        "iconKey": "fullTime",
         "text": "Took ownership of the front-end development for an order optimization tool that managed order flows from  vendor DCs to Walmart stores and  distribution centers. Designed scalable UI components using React.js, TypeScript, and Redux, optimizing performance with lazy loading, virtual scrolling, caching, and versioning. Integrated REST APIs for real-time updates and implemented secure authentication using Auth0. Collaborated with senior developers and the tech lead to shape the project architecture, refine API responses, and ensure a maintainable, high-quality product.",
         "tech": [
           { "icon": "../assets/Skills/react.PNG", "tooltip": "React" },
@@ -168,12 +169,13 @@
       },
       {
         "id": 2,
-        "title": "Deduction Management System (Walmart)",
+        "title": "Deductions",
         "titleTooltip": "Deduction Management System (Walmart)",
         "image": "../assets/Experience/deductions.PNG",
         "role": "Software Engineer",
         "company": "Inventiz",
         "duration": "February 2024 - Present",
+        "iconKey": "fullTime",
         "text": "Designed and developed a tool using Tesseract OCR and C# to extract data from scanned PODs, reducing manual effort and improving accuracy. Built a grid-based document management interface with advanced search for efficient upload, retrieval, and management. Created interactive dashboards with charts and KPIs for real-time deduction tracking and insights. Collaborated with the team to ensure seamless development and consistent UI/UX across the application.",
         "tech": [
           { "icon": "../assets/Skills/react.PNG", "tooltip": "React" },
@@ -195,11 +197,13 @@
       },
       {
         "id": 3,
-        "title": "Full-Stack Development Training Project",
+        "title": "Full-Stack Training",
+        "titleTooltip": "Deduction Management System (Walmart)",
         "image": "../assets/Experience/intern.png",
         "role": "Software Developer Intern",
         "company": "Inventiz",
         "duration": "August 2023 - January 2024",
+        "iconKey": "intern",
         "text": "Acquired full-stack development skills in React.js, JavaScript, Redux, Kendo UI, C#, .NET Core, and SQL. Built sample web applications with CRUD operations, UI design, and state management. Gained hands-on experience writing SQL queries and integrating backend services using .NET Core. Applied practical knowledge to deliver end-to-end solutions while demonstrating strong problem-solving skills, adaptability, and effective collaboration.",
         "tech": [
           { "icon": "../assets/Skills/react.PNG", "tooltip": "React" },

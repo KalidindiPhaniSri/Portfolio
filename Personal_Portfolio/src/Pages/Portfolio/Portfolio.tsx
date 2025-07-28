@@ -33,7 +33,6 @@ const Portfolio = () => {
             xs: "4rem",
             md: "6rem",
           },
-          mb: 3,
         }}
       >
         <TopMenu activeSection={activeSection} scrolled={scrolled} />

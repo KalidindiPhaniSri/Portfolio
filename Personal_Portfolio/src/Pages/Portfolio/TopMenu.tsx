@@ -56,7 +56,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
                 primary={item}
                 sx={
                   activeSection.toLowerCase() === item.toLowerCase()
-                    ? { color: "#ff9800" }
+                    ? { color: "var(--theme-yellow)" }
                     : {}
                 }
               />
@@ -86,7 +86,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
             sx={{
               mr: 2,
               display: { xs: "block", md: "none" },
-              color: "#ff9800",
+              color: "var(--theme-yellow)",
             }}
           >
             <MenuIcon fontSize="large" />
@@ -97,7 +97,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
             sx={{
               flexGrow: 1,
               display: { xs: "none", md: "block" },
-              color: "#ff9800",
+              color: "var(--theme-yellow)",
             }}
           >
             {text}
@@ -111,7 +111,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
                 key={item}
                 sx={
                   activeSection.toLowerCase() === item.toLowerCase()
-                    ? { color: "#ff9800" }
+                    ? { color: "var(--theme-yellow)" }
                     : { ...scrolledTextColor }
                 }
                 href={"#" + item.toLowerCase()}

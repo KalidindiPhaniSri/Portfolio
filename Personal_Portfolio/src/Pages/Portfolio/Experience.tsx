@@ -1,259 +1,194 @@
-import React, { useEffect } from "react";
-import data from "./data.json";
-import { useInView } from "react-intersection-observer";
 import {
-  Card,
-  CardContent,
-  Collapse,
-  createTheme,
-  Grid,
+  Box,
   Stack,
-  ThemeProvider,
-  Tooltip,
-  Typography,
   useMediaQuery,
   useTheme,
-  Zoom,
+  Grow,
+  Tooltip,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import WorkIcon from "@mui/icons-material/Work";
+import SchoolIcon from "@mui/icons-material/School";
+import data from "./data.json";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+import { SectionHeader, TextBlock } from "../../Utils/ReusableComponents";
 import { Images } from "../../Utils/Helpers";
-import { SectionHeader } from "../../Utils/ReusableComponents";
 
 interface ExperienceProps {
   onVisible: () => void;
 }
 interface HeaderDataProps {
   title: string;
+  titleTooltip: string;
   image: string;
   role: string;
   company: string;
   duration: string;
   text: string;
+  iconKey: string;
 }
 interface HeaderProps {
-  desktopMode: boolean;
   inView: boolean;
+  isMobile: boolean;
   data: HeaderDataProps;
-  id: number;
-  handleExpandClick: (id: number) => void;
 }
 interface ContentPrps {
-  desktopMode: boolean;
   inView: boolean;
+  isMobile: boolean;
   text: string;
   tech: { icon: string; tooltip: string }[];
 }
 
-const baseTheme = createTheme();
-const themeColor = createTheme({
-  palette: {
-    warning: { main: baseTheme.palette.warning.light },
-  },
-});
+const Header: React.FC<HeaderProps> = ({ inView, isMobile, data }) => {
+  return (
+    <Grow in={inView} timeout={1000}>
+      <Stack className="header-section" direction="row">
+        <Stack direction="row" gap={{ xs: 2, lg: 3 }}>
+          <img
+            src={Images[data.image] ?? ""}
+            alt={data.title}
+            height={isMobile ? 30 : 50}
+            width={isMobile ? 30 : 50}
+          />
+          <Stack direction="column" alignItems="start">
+            <Tooltip title={data.titleTooltip} placement="top" arrow>
+              <TextBlock
+                size="lg"
+                fontWeight="bold"
+                text={data.title}
+                className="typo"
+              />
+            </Tooltip>
+            <TextBlock
+              size="md"
+              text={data.role + " - " + data.company}
+              className="typo"
+            />
+          </Stack>
+        </Stack>
 
-const Header: React.FC<HeaderProps> = ({
-  desktopMode,
-  inView,
-  data,
-  id,
-  handleExpandClick,
-}) => {
-  const Cards = (
-    <Stack className="header-section" direction="row">
-      <Stack direction="row" gap={{ xs: 0.25, sm: 0.5, md: 0.75, lg: 1 }}>
-        <img
-          src={Images[data.image] ?? ""}
-          alt={data.title}
-          height={desktopMode ? 75 : 50}
-          width={desktopMode ? 75 : 50}
-        />
-        <Stack
-          gap={{ xs: 0.25, sm: 0.5, md: 0.75, lg: 1 }}
-          direction="column"
-          alignItems="start"
-        >
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              fontSize: {
-                xs: "0.6rem",
-                sm: "0.8rem",
-                md: "1rem",
-                lg: "1.25rem",
-              },
-            }}
-            color="warning"
-          >
-            {data.title}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: {
-                xs: "0.5rem",
-                sm: "0.7rem",
-                md: "0.9rem",
-                lg: "1.15rem",
-              },
-            }}
-          >
-            {data.role + " - " + data.company}
-          </Typography>
+        <Stack gap={1} direction="column" alignItems="end">
+          <TextBlock size="sm" text={data.duration} className="typo" />
         </Stack>
       </Stack>
-
-      <Stack
-        gap={{ xs: 0.25, sm: 0.5, md: 0.75, lg: 1 }}
-        direction="column"
-        alignItems="end"
-      >
-        <Typography
-          sx={{
-            fontSize: {
-              xs: "0.4rem",
-              sm: "0.6rem",
-              md: "0.8rem",
-              lg: "1rem",
-            },
-          }}
-        >
-          {data.duration}
-        </Typography>
-        <ExpandMoreIcon onClick={() => handleExpandClick(id)} />
-      </Stack>
-    </Stack>
-  );
-
-  return (
-    <Zoom in={inView} timeout={1000}>
-      {Cards}
-    </Zoom>
+    </Grow>
   );
 };
 
-const Content: React.FC<ContentPrps> = ({
-  desktopMode,
-  inView,
-  text,
-  tech,
-}) => {
-  const Text = (
-    <Stack
-      direction="column"
-      gap={{ xs: 2, md: 3 }}
-      data-testid="experience-content"
-    >
-      <Typography
-        sx={{
-          textAlign: "justify",
-          alignItems: "center",
-          fontSize: {
-            xs: "0.5rem",
-            sm: "0.7rem",
-            md: "0.9rem",
-            lg: "1.15rem",
-          },
-        }}
-      >
-        {text}
-      </Typography>
-      <Stack
-        direction="row"
-        flexWrap={"wrap"}
-        gap={{ xs: 2, md: 3 }}
-        justifyContent="end"
-      >
-        {tech.map((skill, ind) => {
-          return (
-            <Tooltip title={skill.tooltip} placement="top" arrow>
-              <img
-                src={Images[skill.icon] ?? ""}
-                alt={skill.tooltip}
-                height={desktopMode ? 25 : 15}
-                width={desktopMode ? 25 : 15}
-                key={ind}
-              />
-            </Tooltip>
-          );
-        })}
-      </Stack>
-    </Stack>
-  );
+const Content: React.FC<ContentPrps> = ({ inView, isMobile, text, tech }) => {
   return (
-    <Zoom in={inView} timeout={1000}>
-      {Text}
-    </Zoom>
+    <Grow in={inView} timeout={1000}>
+      <Stack
+        direction="column"
+        gap={{ xs: 2, md: 3 }}
+        data-testid="experience-content"
+      >
+        <TextBlock size="md" text={text} textAlign="justify" className="desc" />
+        <Stack
+          direction="row"
+          flexWrap={"wrap"}
+          gap={{ xs: 2, md: 3 }}
+          justifyContent="end"
+        >
+          {tech.map((skill, ind) => {
+            return (
+              <Tooltip title={skill.tooltip} placement="top" arrow>
+                <img
+                  src={Images[skill.icon] ?? ""}
+                  alt={skill.tooltip}
+                  height={isMobile ? 15 : 25}
+                  width={isMobile ? 15 : 25}
+                  key={ind}
+                />
+              </Tooltip>
+            );
+          })}
+        </Stack>
+      </Stack>
+    </Grow>
   );
 };
 
 const Experience: React.FC<ExperienceProps> = ({ onVisible }) => {
-  const [expanded, setExpanded] = React.useState<number | boolean>(false);
-
-  const handleExpandClick = (id: number) => {
-    if (expanded === id) {
-      setExpanded(false);
-      return;
-    }
-    setExpanded(id);
-  };
-
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const { ref, inView } = useInView(data.intersectionObserver);
   useEffect(() => {
     if (inView) onVisible();
   }, [inView, onVisible]);
+
+  const getIconByType = (type: string) => {
+    switch (type) {
+      case "fullTime":
+        return (
+          <WorkIcon fontSize={isMobile ? "medium" : "large"} color="primary" />
+        );
+      case "intern":
+        return (
+          <SchoolIcon
+            fontSize={isMobile ? "medium" : "large"}
+            color="secondary"
+          />
+        );
+      case "freelance":
+      default:
+        return <WorkIcon />;
+    }
+  };
+
   return (
     <section ref={ref} id="experience" className="experience">
-      <ThemeProvider theme={themeColor}>
-        <SectionHeader
-          startText={data.experience.title[0]}
-          endText={data.experience.title[1]}
-        />
-        {data.experience.sections.map((item, ind) => {
-          return (
-            <Grid
-              container
-              sx={{ height: "100%", mb: { xs: 2, md: 3 } }}
-              justifyContent="space-around"
-              alignItems="center"
-              key={ind}
-            >
-              <Grid
-                size={12}
-                className="card-content"
-                sx={{ p: { xs: 2, md: 3 } }}
-              >
-                <Card>
-                  <CardContent>
-                    <Header
-                      desktopMode={isDesktop}
-                      inView={inView}
-                      data={item}
-                      handleExpandClick={handleExpandClick}
-                      id={item.id}
-                    />
-                  </CardContent>
+      <SectionHeader
+        startText={data.experience.title[0]}
+        endText={data.experience.title[1]}
+      />
+      <Box sx={{ position: "relative", mt: 6 }}>
+        {/* Vertical Line */}
+        <Box className="vertical-line" />
 
-                  <Collapse
-                    in={item.id === expanded}
-                    timeout="auto"
-                    unmountOnExit
-                  >
-                    <CardContent>
-                      <Content
-                        desktopMode={isDesktop}
-                        inView={inView}
-                        text={item.text}
-                        tech={item.tech}
-                      />
-                    </CardContent>
-                  </Collapse>
-                </Card>
-              </Grid>
-            </Grid>
-          );
-        })}
-      </ThemeProvider>
+        <Stack spacing={6}>
+          {data.experience.sections.map((item, index) => {
+            const isLeft = !isMobile && index % 2 === 0;
+
+            return (
+              <Box
+                key={index}
+                className={`tile ${
+                  isMobile
+                    ? "justify-start"
+                    : isLeft
+                    ? "justify-start"
+                    : "justify-end"
+                }`}
+              >
+                {/* Timeline Dot */}
+                <Box className="vertical-line-icon">
+                  {getIconByType(item.iconKey)}
+                </Box>
+
+                {/* Card Content */}
+                <Box
+                  className={`section ${isMobile ? "mobile" : "desktop"} ${
+                    isLeft ? "left" : "right"
+                  }`}
+                >
+                  <Header inView={inView} data={item} isMobile={isMobile} />
+                  {/* Hidden extra content, revealed on hover */}
+                  <Box className="description">
+                    <Content
+                      inView={inView}
+                      text={item.text}
+                      tech={item.tech}
+                      isMobile={isMobile}
+                    />
+                  </Box>
+                </Box>
+              </Box>
+            );
+          })}
+        </Stack>
+      </Box>
     </section>
   );
 };

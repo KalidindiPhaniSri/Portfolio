@@ -1,3 +1,36 @@
+/* Common css */
+.about,
+.skills,
+.experience {
+  text-align: center;
+}
+.about,
+.skills,
+.experience {
+  padding: 3rem;
+}
+@media (min-width: 600px) {
+  .about,
+  .skills,
+  .experience {
+    padding-inline: 4rem;
+  }
+}
+@media (min-width: 900px) {
+  .about,
+  .skills,
+  .experience {
+    padding-inline: 5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .about,
+  .skills,
+  .experience {
+    padding-inline: 6rem;
+  }
+}
+
 .bg-img {
   background-image: url(../../assets/background.webp);
   color: white;
@@ -52,51 +85,143 @@
   text-align: left;
 }
 
-.about,
-.skills,
-.experience {
-  text-align: center;
-}
-
 .skills .card-content {
-  background-color: white;
-  border-bottom: 2px solid var(--theme-yellow);
+  border: 2px solid var(--theme-grey);
+  border-radius: 0.5rem;
 }
 .skills .card-content .skill-name {
+  text-wrap-mode: nowrap;
+}
+
+.experience,
+.about {
+  background-color: var(--theme-alternate-bg);
+}
+.experience .header-section .typo {
   text-wrap-mode: nowrap;
 }
 .experience .header-section {
   justify-content: space-between;
 }
-.experience .sm-chip {
-  font-size: 0.6rem;
+
+.experience .vertical-line {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--theme-grey);
 }
-.skills {
-  background-color: var(--theme-alternate-bg);
+.experience .tile {
+  display: flex;
+  position: relative;
 }
-.about,
-.skills,
-.experience {
-  padding: 3rem;
+.experience .justify-start {
+  justify-content: flex-start;
 }
-@media (min-width: 600px) {
-  .about,
-  .skills,
-  .experience {
-    padding-inline: 4rem;
-  }
+
+.experience .justify-end {
+  justify-content: flex-end;
+}
+.experience .vertical-line-icon {
+  position: absolute;
+  top: 1.5rem;
+  padding: 1rem;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 50%;
+  z-index: 1;
+}
+/* Base styles */
+.experience .section {
+  width: 45%;
+  padding: 16px;
+  margin-left: 0;
+  margin-right: 4rem;
+  background-color: white;
+  border-radius: 8px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+}
+
+/* Mobile overrides */
+.experience .section.mobile {
+  width: 80%;
+  margin-left: 2.5rem; /* 10 in MUI spacing (usually 8px * 10 = 80px) */
+  margin-right: 0;
+}
+
+/* Layout direction */
+.experience .section.left {
+  margin-left: 0;
+  margin-right: 4rem;
+}
+
+.experience .section.right {
+  margin-left: 4rem;
+  margin-right: 0;
+}
+
+/* Speech bubble tip (using ::before) */
+.experience .section.left::before,
+.experience .section.right::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  z-index: 2;
+}
+
+.experience .section.left::before {
+  right: -20px;
+  border-left-color: white;
+}
+
+.experience .section.right::before {
+  left: -20px;
+  border-right-color: white;
+}
+
+.experience .section.left {
+  border-left: 2px solid var(--theme-yellow);
+}
+
+.experience .section.right {
+  border-right: 2px solid var(--theme-yellow);
+}
+
+/* Description animation on hover */
+.experience .section:hover .description {
+  opacity: 1;
+  max-height: 400px;
+}
+.experience .section .description {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+.experience .section .description .desc {
+  color: var(--theme-text-grey);
 }
 @media (min-width: 900px) {
-  .about,
-  .skills,
-  .experience {
-    padding-inline: 5rem;
+  .experience .vertical-line {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .experience .vertical-line-icon {
+    left: 50%;
   }
 }
-@media (min-width: 1200px) {
-  .about,
-  .skills,
-  .experience {
-    padding-inline: 6rem;
+@media (max-width: 899px) {
+  .experience .vertical-line {
+    left: 0;
+    transform: none;
+  }
+  .experience .vertical-line-icon {
+    left: 0;
   }
 }

@@ -1,7 +1,10 @@
 :root {
   /* --theme-yellow: #f3bc17; */
+  /* --theme-alternate-bg: #f7f7f7; */
   --theme-yellow: #ff9800;
-  --theme-alternate-bg: #f7f7f7;
+  --theme-alternate-bg: #f3f3f3;
+  --theme-grey: rgb(221, 221, 221);
+  --theme-text-grey: #666;
   --card-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
   --border-color: #dee2e6;
   --border: 1px solid #dee2e6;

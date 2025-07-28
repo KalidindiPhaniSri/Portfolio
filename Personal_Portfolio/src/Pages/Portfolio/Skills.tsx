@@ -20,12 +20,12 @@ const Tiles: React.FC<TilesProps> = ({ iconUrl, name, delay, inView }) => {
     <Grid
       size={{ xs: 3, sm: 2.5, md: 2, lg: 1.5 }}
       className="card-content"
-      sx={{ p: { xs: 0.25, md: 0.5 } }}
+      // sx={{ p: { xs: 0.25, md: 0.5 } }}
     >
       <Box sx={{ py: { xs: 0.5, md: 1 } }}>
         <img src={Images[iconUrl] ?? ""} alt={name} height={50} width={50} />
       </Box>
-      <TextBlock className="skill-name" text={name} size="lg" />
+      <TextBlock className="skill-name" text={name} size="md" />
     </Grid>
   );
   return (

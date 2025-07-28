@@ -59,7 +59,7 @@ const Intro: React.FC<AboutCardProps> = ({ inView }) => {
         return (
           <Grow in={inView} timeout={delay}>
             <div>
-              <TextBlock size="lg" textAlign="justify" text={text} />
+              <TextBlock size="md" textAlign="justify" text={text} />
             </div>
           </Grow>
         );
