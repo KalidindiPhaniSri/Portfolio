@@ -6,6 +6,8 @@ import {
   type CSSProperties,
 } from "@mui/material";
 import type React from "react";
+import Snackbar, { type SnackbarCloseReason } from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 interface SectionHeaderProps {
   startText: string;
@@ -74,5 +76,50 @@ export const TextBlock: React.FC<TextBlockProps> = ({
     <Typography sx={{ ...props }} className={className}>
       {text}
     </Typography>
+  );
+};
+
+export interface SnackBarProps {
+  open: boolean;
+  message: string;
+  severity: "error" | "warning" | "info" | "success";
+  duration?: number;
+}
+interface CustomizedSnackbarsProps {
+  snackBarProps: SnackBarProps;
+  setSnackBarProps: React.Dispatch<React.SetStateAction<SnackBarProps>>;
+}
+
+export const SnackBar: React.FC<CustomizedSnackbarsProps> = ({
+  snackBarProps,
+  setSnackBarProps,
+}) => {
+  const handleClose = (
+    _: unknown,
+    // event?: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackBarProps((prevState) => ({ ...prevState, open: false }));
+  };
+
+  return (
+    <Snackbar
+      open={snackBarProps.open}
+      autoHideDuration={snackBarProps.duration ?? 3000}
+      onClose={handleClose}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+    >
+      <Alert
+        onClose={handleClose}
+        severity={snackBarProps.severity}
+        variant="filled"
+        sx={{ width: "100%" }}
+      >
+        {snackBarProps.message}
+      </Alert>
+    </Snackbar>
   );
 };

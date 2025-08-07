@@ -7,6 +7,8 @@ import About from "./About";
 import { Box } from "@mui/material";
 import Skills from "./Skills";
 import Experience from "./Experience";
+import Projects from "./Projects";
+import Contact from "./Contact";
 
 const Portfolio = () => {
   const navItems = data.topMenu.sections;
@@ -18,11 +20,8 @@ const Portfolio = () => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -41,6 +40,8 @@ const Portfolio = () => {
       <About onVisible={() => setActiveSection("about")} />
       <Skills onVisible={() => setActiveSection("skills")} />
       <Experience onVisible={() => setActiveSection("experience")} />
+      <Projects onVisible={() => setActiveSection("projects")} />
+      <Contact onVisible={() => setActiveSection("contact")} />
     </>
   );
 };

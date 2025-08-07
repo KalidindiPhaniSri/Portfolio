@@ -21,18 +21,70 @@ interface TopMenuProps {
 
 const drawerWidth = 240;
 
+const getNavBtnClass = (
+  item: string,
+  activeSection: string,
+  scrolled: boolean
+) => {
+  if (activeSection.toLowerCase() === item.toLowerCase())
+    return "highlight-navbtn";
+  if (scrolled) return "scrolled-navbtn";
+  return "navbtn";
+};
+
 const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { text, sections } = data.topMenu;
+  const handleDrawerToggle = () => setMobileOpen((prev) => !prev);
 
-  const scrolledTextColor = scrolled ? { color: "black" } : { color: "#fff" };
-  const scrolledBgColor = scrolled
-    ? { backgroundColor: "#fff", transition: "background-color 0.5s ease" }
-    : {};
+  React.useEffect(() => {
+    const handleAnchorClick = (e: Event) => {
+      const target = e.target as HTMLAnchorElement;
+      if (
+        target.tagName === "A" &&
+        target.getAttribute("href")?.startsWith("#")
+      ) {
+        const id = target.getAttribute("href")!.slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          e.preventDefault();
+          // Dynamically get the nav height
+          const nav = document.querySelector(".top-menu");
+          const navHeight = nav ? (nav as HTMLElement).offsetHeight : 0;
+          const rect = el.getBoundingClientRect();
+          const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+          const top = rect.top + scrollTop - navHeight;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      }
+    };
+    document.addEventListener("click", handleAnchorClick);
+    return () => document.removeEventListener("click", handleAnchorClick);
+  }, []);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
-  };
+  const renderDrawerList = () => (
+    <List>
+      {sections.map((item) => (
+        <ListItem key={item} disablePadding>
+          <ListItemButton
+            sx={{ textAlign: "center" }}
+            component="a"
+            href={`#${item.toLowerCase()}`}
+          >
+            <ListItemText
+              primary={item}
+              className={`${
+                activeSection.toLowerCase() === item.toLowerCase()
+                  ? "highlight-navbtn"
+                  : ""
+              }`}
+            />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
+  );
 
   const drawer = (
     <Box
@@ -44,34 +96,12 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
         MUI
       </Typography>
       <Divider />
-      <List>
-        {data.topMenu.sections.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton
-              sx={{ textAlign: "center" }}
-              component="a"
-              href={"#" + item.toLowerCase()}
-            >
-              <ListItemText
-                primary={item}
-                sx={
-                  activeSection.toLowerCase() === item.toLowerCase()
-                    ? { color: "var(--theme-yellow)" }
-                    : {}
-                }
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {renderDrawerList()}
     </Box>
   );
 
   return (
-    <Box
-      sx={{ display: "flex", ...scrolledTextColor, ...scrolledBgColor }}
-      className="top-menu"
-    >
+    <Box className={`top-menu${scrolled ? " scrolled" : ""}`}>
       <AppBar
         component="nav"
         className="appbar-nav"
@@ -109,12 +139,8 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
             {sections.map((item) => (
               <Button
                 key={item}
-                sx={
-                  activeSection.toLowerCase() === item.toLowerCase()
-                    ? { color: "var(--theme-yellow)" }
-                    : { ...scrolledTextColor }
-                }
-                href={"#" + item.toLowerCase()}
+                href={`#${item.toLowerCase()}`}
+                className={getNavBtnClass(item, activeSection, scrolled)}
               >
                 {item}
               </Button>
@@ -128,7 +154,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", md: "none" },
@@ -147,4 +173,5 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
     </Box>
   );
 };
+
 export default TopMenu;

@@ -39,3 +39,32 @@ describe("Top Menu", () => {
     expect(mobileNav).not.toBeVisible();
   });
 });
+// Passing tests
+describe("Top Menu - Passing Tests", () => {
+  it("applies highlight-navbtn class to active section in desktop", () => {
+    render(
+      <TopMenu activeSection={data.topMenu.sections[1]} scrolled={false} />
+    );
+    const desktopNav = screen.getByTestId("desktop-nav");
+    const activeBtn = within(desktopNav).getByText(data.topMenu.sections[1]);
+    expect(activeBtn.className).toContain("highlight-navbtn");
+  });
+
+  it("applies scrolled-navbtn class to non-active sections when scrolled", () => {
+    render(
+      <TopMenu activeSection={data.topMenu.sections[0]} scrolled={true} />
+    );
+    const desktopNav = screen.getByTestId("desktop-nav");
+    data.topMenu.sections.slice(1).forEach((item) => {
+      const btn = within(desktopNav).getByText(item);
+      expect(btn.className).toContain("scrolled-navbtn");
+    });
+  });
+
+  it("check menu icon", () => {
+    global.innerWidth = 500;
+    global.dispatchEvent(new Event("resize"));
+    render(<TopMenu activeSection="home" scrolled={false} />);
+    expect(screen.getByLabelText("open drawer")).toBeInTheDocument();
+  });
+});

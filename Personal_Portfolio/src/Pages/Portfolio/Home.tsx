@@ -6,12 +6,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import { Images } from "../../Utils/Helpers";
 import data from "./data.json";
 import type React from "react";
-import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
-
-interface HomeProps {
-  onVisible: () => void;
-}
+import { useInView } from "react-intersection-observer";
 
 interface ImageProps {
   inView: boolean;
@@ -91,7 +87,7 @@ const Icons: React.FC<IconsProps> = ({ inView }) => {
         <Grow in={inView} timeout={5000}>
           <IconButton
             component="a"
-            href="https://www.linkedin.com/in/phani-sri-kalidindi-5111a2254/"
+            href={import.meta.env.VITE_LINKEDIN_PROFILE_URL}
             target="_blank"
             aria-label="LinkedIn"
             sx={{ color: "white" }}
@@ -117,7 +113,7 @@ const Icons: React.FC<IconsProps> = ({ inView }) => {
         <Grow in={inView} timeout={5000}>
           <IconButton
             component="a"
-            href="https://github.com/KalidindiPhaniSri"
+            href={import.meta.env.VITE_GITHUB_PROFILE_URL}
             target="_blank"
             aria-label="GitHub"
             sx={{ color: "white" }}
@@ -130,13 +126,19 @@ const Icons: React.FC<IconsProps> = ({ inView }) => {
   );
 };
 
+interface HomeProps {
+  onVisible: () => void;
+}
+
 const Home: React.FC<HomeProps> = ({ onVisible }) => {
   const { ref, inView } = useInView(data.intersectionObserver);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
   useEffect(() => {
     if (inView) onVisible();
   }, [inView, onVisible]);
+
   return (
     <section id="home" className="home" ref={ref}>
       {isDesktop ? (

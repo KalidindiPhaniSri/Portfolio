@@ -9,8 +9,8 @@ import {
 import WorkIcon from "@mui/icons-material/Work";
 import SchoolIcon from "@mui/icons-material/School";
 import data from "./data.json";
-import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import { SectionHeader, TextBlock } from "../../Utils/ReusableComponents";
 import { Images } from "../../Utils/Helpers";
 
@@ -92,7 +92,13 @@ const Content: React.FC<ContentPrps> = ({ inView, isMobile, text, tech }) => {
         >
           {tech.map((skill, ind) => {
             return (
-              <Tooltip title={skill.tooltip} placement="top" arrow>
+              <Tooltip
+                title={skill.tooltip}
+                placement="top"
+                arrow
+                style={{ cursor: "pointer" }}
+                key={ind}
+              >
                 <img
                   src={Images[skill.icon] ?? ""}
                   alt={skill.tooltip}
@@ -114,6 +120,7 @@ const Experience: React.FC<ExperienceProps> = ({ onVisible }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const { ref, inView } = useInView(data.intersectionObserver);
+
   useEffect(() => {
     if (inView) onVisible();
   }, [inView, onVisible]);

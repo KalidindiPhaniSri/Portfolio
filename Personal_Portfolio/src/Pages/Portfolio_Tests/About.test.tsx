@@ -7,16 +7,33 @@ describe("About", () => {
     const { container } = render(<About onVisible={() => {}} />);
     expect(container).toHaveTextContent(data.about.title);
   });
-  it("renders about image", () => {
+  it("renders about section text", () => {
     render(<About onVisible={() => {}} />);
-    const image = screen.getByAltText(/About/i);
-    expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute("src");
-    expect(image.getAttribute("src")).toBeTruthy();
+    const introSection = screen.getByTestId("about-intro");
+    {
+      data.about.intro.map((text) => {
+        expect(introSection).toHaveTextContent(text);
+      });
+    }
   });
-  it("renders content", () => {
+  it("renders about section card content", () => {
     render(<About onVisible={() => {}} />);
-    const content = screen.getByTestId("about-content");
-    expect(within(content).getByText(data.about.text)).toBeInTheDocument();
+    const { header, headerText, tiles } = data.about.card;
+    const cardSection = screen.getByTestId("about-card");
+    const headerEle = within(cardSection).getByText(header);
+    const headerTextEle = within(cardSection).getByText(headerText);
+    expect(cardSection).toHaveClass("about-card");
+    expect(headerEle).toBeInTheDocument();
+    expect(headerTextEle).toBeInTheDocument();
+    {
+      tiles.map(({ header, headerText }) => {
+        const imgEle = within(cardSection).getByAltText(header);
+        expect(imgEle).toBeInTheDocument();
+        expect(imgEle).toHaveAttribute("src");
+        expect(imgEle.getAttribute("src")).toBeTruthy();
+        expect(cardSection).toHaveTextContent(header);
+        expect(cardSection).toHaveTextContent(headerText);
+      });
+    }
   });
 });

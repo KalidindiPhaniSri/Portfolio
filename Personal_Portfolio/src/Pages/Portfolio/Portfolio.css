@@ -1,32 +1,42 @@
 /* Common css */
 .about,
 .skills,
-.experience {
+.experience,
+.projects,
+.contact {
   text-align: center;
 }
 .about,
 .skills,
-.experience {
+.experience,
+.projects,
+.contact {
   padding: 3rem;
 }
 @media (min-width: 600px) {
   .about,
   .skills,
-  .experience {
+  .experience,
+  .projects,
+  .contact {
     padding-inline: 4rem;
   }
 }
 @media (min-width: 900px) {
   .about,
   .skills,
-  .experience {
+  .experience,
+  .projects,
+  .contact {
     padding-inline: 5rem;
   }
 }
 @media (min-width: 1200px) {
   .about,
   .skills,
-  .experience {
+  .experience,
+  .projects,
+  .contact {
     padding-inline: 6rem;
   }
 }
@@ -44,10 +54,28 @@
 }
 
 .top-menu {
+  display: flex;
   height: 4rem;
 }
 .top-menu .appbar-nav {
   background-color: inherit !important;
+}
+.top-menu.scrolled {
+  color: black;
+  background-color: white;
+  transition: background-color 0.5s ease;
+}
+.top-menu .highlight-navbtn {
+  color: var(--theme-yellow);
+}
+.highlight-navbtn {
+  color: var(--theme-yellow);
+}
+.top-menu .scrolled-navbtn {
+  color: black;
+}
+.top-menu .navbtn {
+  color: white;
 }
 
 .home {
@@ -94,7 +122,8 @@
 }
 
 .experience,
-.about {
+.about,
+.contact {
   background-color: var(--theme-alternate-bg);
 }
 .experience .header-section .typo {
@@ -204,7 +233,8 @@
   margin-top: 0.5rem;
   transition: all 0.3s ease-in-out;
 }
-.experience .section .description .desc {
+.experience .section .description .desc,
+.projects .desc {
   color: var(--theme-text-grey);
 }
 @media (min-width: 900px) {
@@ -224,4 +254,33 @@
   .experience .vertical-line-icon {
     left: 0;
   }
+}
+
+.projects .github-icon {
+  padding: 0;
+  color: black;
+}
+
+/* Border color when hovered */
+.contact
+  .contact-form
+  .text-field:hover
+  .MuiOutlinedInput-root:hover
+  .MuiOutlinedInput-notchedOutline {
+  border-color: var(--theme-yellow);
+}
+
+/* Border color when focused */
+.contact
+  .contact-form
+  .text-field
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: var(--theme-yellow);
+}
+
+/* Label color when focused  and hover*/
+.contact .contact-form .text-field .MuiInputLabel-root.Mui-focused,
+.contact .contact-form .text-field:hover label {
+  color: var(--theme-yellow);
 }

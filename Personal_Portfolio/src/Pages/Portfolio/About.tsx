@@ -2,8 +2,8 @@ import { Grid, Grow, Stack } from "@mui/material";
 import { useTheme, useMediaQuery } from "@mui/material";
 import { SectionHeader, TextBlock } from "../../Utils/ReusableComponents";
 import data from "./data.json";
-import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import { Images } from "../../Utils/Helpers";
 
 interface AboutProps {
@@ -20,6 +20,7 @@ const AboutCard: React.FC<AboutCardProps> = ({ desktopMode, inView }) => {
     <Grow in={inView} timeout={1000}>
       <Stack
         className="about-card"
+        data-testid="about-card"
         sx={{ p: { xs: 2, sm: 3, md: 4, lg: 5 } }}
         gap={{ xs: 2, sm: 3, md: 4, lg: 5 }}
       >
@@ -72,6 +73,7 @@ const About: React.FC<AboutProps> = ({ onVisible }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const { ref, inView } = useInView(data.intersectionObserver);
+
   useEffect(() => {
     if (inView) onVisible();
   }, [inView, onVisible]);
