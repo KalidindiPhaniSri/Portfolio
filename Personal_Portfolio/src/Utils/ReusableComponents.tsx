@@ -123,3 +123,9 @@ export const SnackBar: React.FC<CustomizedSnackbarsProps> = ({
     </Snackbar>
   );
 };
+
+//tests utility
+export const SetScreenSize = (width: number) => {
+  global.innerWidth = width;
+  global.dispatchEvent(new Event("resize"));
+};

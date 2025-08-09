@@ -1,15 +1,11 @@
 import { render, screen, within } from "@testing-library/react";
 import Home from "../Portfolio/Home";
 import data from "./testdata.json";
-
-const setScreenSize = (width: number) => {
-  global.innerWidth = width;
-  global.dispatchEvent(new Event("resize"));
-};
+import { SetScreenSize } from "../../Utils/ReusableComponents";
 
 describe("Home section", () => {
   it("renders portfolio profile in large screens", () => {
-    setScreenSize(1024);
+    SetScreenSize(1024);
     render(<Home onVisible={() => {}} />);
     const image = screen.getByAltText(/Phani/i) as HTMLImageElement;
     expect(image).toBeInTheDocument();
@@ -19,7 +15,7 @@ describe("Home section", () => {
     expect(image.width).toBe(250);
   });
   it("renders portfolio profile in small screens", () => {
-    setScreenSize(500);
+    SetScreenSize(500);
     render(<Home onVisible={() => {}} />);
     const image = screen.getByAltText(/Phani/i) as HTMLImageElement;
     expect(image).toBeInTheDocument();
@@ -30,7 +26,7 @@ describe("Home section", () => {
   });
 
   it("renders all bio content for large screens", () => {
-    setScreenSize(1024);
+    SetScreenSize(1024);
     render(<Home onVisible={() => {}} />);
     const content = screen.getByTestId("home-content");
     const { intro, name, role, text } = data.home.bio;
@@ -51,7 +47,7 @@ describe("Home section", () => {
 
 describe("checking classnames for home section", () => {
   it("renders specified bio content for small screens", () => {
-    setScreenSize(500);
+    SetScreenSize(500);
     render(<Home onVisible={() => {}} />);
     const { intro, name, role, text } = data.home.bio;
     const content = screen.getByTestId("home-content");
@@ -62,7 +58,7 @@ describe("checking classnames for home section", () => {
   });
 
   it("applies desktop-home class for large screens", () => {
-    setScreenSize(1024);
+    SetScreenSize(1024);
     const { container } = render(<Home onVisible={() => {}} />);
     const homeSection = container.querySelector("#home");
     expect(homeSection).toBeTruthy();
@@ -70,7 +66,7 @@ describe("checking classnames for home section", () => {
     expect(desktopGrid).toBeTruthy();
   });
   it("applies small-home class for small screens", () => {
-    setScreenSize(500);
+    SetScreenSize(500);
     const { container } = render(<Home onVisible={() => {}} />);
     const homeSection = container.querySelector("#home");
     expect(homeSection).toBeTruthy();
@@ -78,13 +74,13 @@ describe("checking classnames for home section", () => {
     expect(desktopGrid).toBeTruthy();
   });
   it("applies desktop-content classname for large screens for content component", () => {
-    setScreenSize(1024);
+    SetScreenSize(1024);
     render(<Home onVisible={() => {}} />);
     const ele = screen.getByTestId("home-content");
     expect(ele.className).toContain("desktop-content");
   });
   it("applies small-content classname for small screens for content component", () => {
-    setScreenSize(500);
+    SetScreenSize(500);
     render(<Home onVisible={() => {}} />);
     const ele = screen.getByTestId("home-content");
     expect(ele.className).toContain("small-content");

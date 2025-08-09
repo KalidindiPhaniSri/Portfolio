@@ -78,11 +78,7 @@ const Header: React.FC<HeaderProps> = ({ inView, isMobile, data }) => {
 const Content: React.FC<ContentPrps> = ({ inView, isMobile, text, tech }) => {
   return (
     <Grow in={inView} timeout={1000}>
-      <Stack
-        direction="column"
-        gap={{ xs: 2, md: 3 }}
-        data-testid="experience-content"
-      >
+      <Stack direction="column" gap={{ xs: 2, md: 3 }}>
         <TextBlock size="md" text={text} textAlign="justify" className="desc" />
         <Stack
           direction="row"
@@ -152,9 +148,9 @@ const Experience: React.FC<ExperienceProps> = ({ onVisible }) => {
       />
       <Box sx={{ position: "relative", mt: 6 }}>
         {/* Vertical Line */}
-        <Box className="vertical-line" />
+        <Box className="vertical-line" data-testid="vertical-line" />
 
-        <Stack spacing={6}>
+        <Stack spacing={6} data-testid="experience-sections">
           {data.experience.sections.map((item, index) => {
             const isLeft = !isMobile && index % 2 === 0;
 

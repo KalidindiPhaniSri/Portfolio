@@ -141,7 +141,7 @@
     "sections": [
       {
         "id": 1,
-        "title": " Supply Chain SSO",
+        "title": "Supply Chain SSO",
         "titleTooltip": "Supply Chain Store-Specific Orders (Walmart)",
         "image": "../assets/Experience/sso.png",
         "role": "Software Engineer",
