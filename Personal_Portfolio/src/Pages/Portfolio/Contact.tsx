@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { useInView } from "react-intersection-observer";
 import {
-  Grow,
   Box,
   TextField,
   Button,
@@ -28,43 +27,35 @@ interface ContactProps {
   onVisible: () => void;
 }
 
-const Contact: React.FC<ContactProps> = ({ onVisible }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const themePalette = createTheme({
-    palette: {
-      warning: {
-        main: "#ff9800", // your custom color,
-        contrastText: "#fff",
-      },
-    },
-  });
-  const { ref, inView } = useInView(data.intersectionObserver);
-  const [snackBarProps, setSnackBarProps] = useState<SnackBarProps>({
-    open: false,
-    message: "",
-    severity: "info",
-  });
-
+const ContactForm = memo(() => {
   const [form, setForm] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
-
   const [sending, setSending] = useState(false);
-
-  useEffect(() => {
-    if (inView) onVisible();
-  }, [inView, onVisible]);
+  const [snackBarProps, setSnackBarProps] = useState<SnackBarProps>({
+    open: false,
+    message: "",
+    severity: "info",
+  });
+  const themePalette = createTheme({
+    palette: {
+      warning: {
+        main: "#ff9800",
+        contrastText: "#fff",
+      },
+    },
+  });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { name, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
@@ -74,7 +65,7 @@ const Contact: React.FC<ContactProps> = ({ onVisible }) => {
 
     emailjs
       .send(
-        "service_l103cr8", // EmailJS service ID
+        "service_m328tfc", // EmailJS service ID
         "template_s4pfbad", // EmailJS template ID
         {
           from_name: form.name,
@@ -99,100 +90,119 @@ const Contact: React.FC<ContactProps> = ({ onVisible }) => {
       });
   };
 
-  const ContactDetails = () => {
-    return (
-      <>
-        <Box textAlign="center" sx={{ pb: 2, pt: 7.5 }}>
-          <img
-            src={Images[data.contact.chatIcon] ?? ""}
-            alt={data.contact.title[0]}
-            height={isMobile ? 50 : 75}
-            width={isMobile ? 50 : 75}
-          />
-        </Box>
-        <Stack direction="column" gap={2}>
-          <Stack direction="row" gap={1}>
-            <MailOutlineIcon fontSize="medium" />
-            <TextBlock text={"phanisri.kalidindi@gmail.com"} size="lg" />
-          </Stack>
-          <Stack direction="row" gap={1}>
-            <PlaceOutlinedIcon fontSize="medium" />
-            <TextBlock text={"Andhra Pradesh, India"} size="lg" />
-          </Stack>
-        </Stack>
-      </>
-    );
-  };
-
-  const ContactCard = () => {
-    return (
-      <Grow in={inView} timeout={1000}>
-        <Box sx={{ p: 3 }}>
-          <form onSubmit={handleSubmit} className="contact-form">
-            <Stack direction="row" gap={2}>
-              <TextField
-                fullWidth
-                margin="dense"
-                size="small"
-                label="Name"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                required
-                className="text-field"
-              />
-
-              <TextField
-                fullWidth
-                margin="dense"
-                size="small"
-                label="Email"
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                required
-                className="text-field"
-              />
-            </Stack>
+  return (
+    <ThemeProvider theme={themePalette}>
+      <Box sx={{ p: 3 }}>
+        <form onSubmit={handleSubmit} className="contact-form">
+          <Stack direction="row" gap={2}>
             <TextField
               fullWidth
               margin="dense"
               size="small"
-              label="Subject"
-              name="subject"
-              value={form.subject}
+              label="Name"
+              name="name"
+              value={form.name}
               onChange={handleChange}
               required
               className="text-field"
             />
             <TextField
               fullWidth
-              margin="normal"
-              label="Message"
-              name="message"
-              multiline
-              rows={3}
-              value={form.message}
+              margin="dense"
+              size="small"
+              label="Email"
+              name="email"
+              type="email"
+              value={form.email}
               onChange={handleChange}
               required
               className="text-field"
             />
-            <Box textAlign="end">
-              <Button
-                type="submit"
-                variant="contained"
-                color="warning"
-                disabled={sending}
-              >
-                {sending ? "Submitting..." : "Submit"}
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Grow>
-    );
-  };
+          </Stack>
+          <TextField
+            fullWidth
+            margin="dense"
+            size="small"
+            label="Subject"
+            name="subject"
+            value={form.subject}
+            onChange={handleChange}
+            required
+            className="text-field"
+          />
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Message"
+            name="message"
+            multiline
+            rows={3}
+            value={form.message}
+            onChange={handleChange}
+            required
+            className="text-field"
+          />
+          <Box textAlign="end">
+            <Button
+              type="submit"
+              variant="contained"
+              color="warning"
+              disabled={sending}
+            >
+              {sending ? "Submitting..." : "Submit"}
+            </Button>
+          </Box>
+        </form>
+      </Box>
+      <SnackBar
+        snackBarProps={snackBarProps}
+        setSnackBarProps={setSnackBarProps}
+      />
+    </ThemeProvider>
+  );
+});
+
+const ContactDetails = memo(() => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  return (
+    <>
+      <Box textAlign="center" sx={{ pb: 2, pt: isMobile ? 2 : 7.5 }}>
+        <img
+          src={Images[data.contact.chatIcon] ?? ""}
+          alt={data.contact.title[0]}
+          height={isMobile ? 50 : 75}
+          width={isMobile ? 50 : 75}
+        />
+      </Box>
+      <Stack direction="column">
+        <Stack direction="row" gap={1}>
+          <MailOutlineIcon fontSize="medium" />
+          <TextBlock text={"phanisri.kalidindi@gmail.com"} size="lg" />
+        </Stack>
+        <Stack direction="row" gap={1}>
+          <PlaceOutlinedIcon fontSize="medium" />
+          <TextBlock text={"Andhra Pradesh, India"} size="lg" />
+        </Stack>
+      </Stack>
+    </>
+  );
+});
+
+const Contact: React.FC<ContactProps> = ({ onVisible }) => {
+  const { ref, inView } = useInView(data.intersectionObserver);
+  const themePalette = createTheme({
+    palette: {
+      warning: {
+        main: "#ff9800",
+        contrastText: "#fff",
+      },
+    },
+  });
+
+  useEffect(() => {
+    if (inView) onVisible();
+  }, [inView, onVisible]);
 
   return (
     <section ref={ref} id="contact" className="contact">
@@ -203,17 +213,13 @@ const Contact: React.FC<ContactProps> = ({ onVisible }) => {
         />
         <TextBlock text={data.contact.text} size="lg" />
         <Grid container spacing={0} justifyContent="center">
-          <Grid size={{ xs: 8, md: 3 }}>
+          <Grid size={{ xs: 4.5, md: 2.5 }}>
             <ContactDetails />
           </Grid>
-          <Grid size={{ xs: 8, md: 6 }}>
-            <ContactCard />
+          <Grid size={{ xs: 12, md: 6 }} sx={{ pl: 3 }}>
+            <ContactForm />
           </Grid>
         </Grid>
-        <SnackBar
-          snackBarProps={snackBarProps}
-          setSnackBarProps={setSnackBarProps}
-        />
       </ThemeProvider>
     </section>
   );

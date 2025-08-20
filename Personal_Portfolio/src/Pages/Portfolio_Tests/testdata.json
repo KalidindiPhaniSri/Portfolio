@@ -205,5 +205,58 @@
         ]
       }
     ]
+  },
+  "projects": {
+    "title": "My Projects",
+    "sections": [
+      {
+        "id": 1,
+        "title": "Portfolio Website",
+        "image": "../assets/Projects/portfolio.PNG",
+        "githubLink": "https://github.com/KalidindiPhaniSri/Portfolio",
+        "text": "Developed a responsive personal portfolio using React, TypeScript, and Vite, featuring scroll-triggered animations and active section highlighting. Built with Material-UI following clean architecture principles, the project includes unit testing and Git version control for maintainability. Fully optimized for all screen sizes and devices, it showcases my frontend expertise through structured sections (Home, About, Skills, Experience, Projects) that balance aesthetics with performance and functionality.",
+        "tech": [
+          { "icon": "../assets/Skills/react.PNG", "tooltip": "React" },
+          {
+            "icon": "../assets/Skills/typescript.png",
+            "tooltip": "Typescript"
+          },
+          { "icon": "../assets/Skills/redux.png", "tooltip": "Redux" },
+          {
+            "icon": "../assets/Skills/vitest.png",
+            "tooltip": "Vitest"
+          },
+          { "icon": "../assets/Skills/mui.png", "tooltip": "MUI" },
+          { "icon": "../assets/Skills/git.png", "tooltip": "Git" },
+          {
+            "icon": "../assets/Skills/vs code.png",
+            "tooltip": "VS Code"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Clean Architecture Web API",
+        "image": "../assets/Projects/api project.PNG",
+        "githubLink": "https://github.com/KalidindiPhaniSri/Clean-Architecture-WebAPI",
+        "text": "Developed a secure and modular ASP.NET Core 8 Web API as part of a learning initiative to understand backend architecture and development practices. The project follows a 3-layer architecture (API, BLL, DAL), integrates JWT-based authentication and role-based authorization, and includes user management and CRUD operations using ADO.NET with SQL Server. Implemented Redis caching to optimize performance and maintained clean code separation with Git for version control.",
+        "tech": [
+          {
+            "icon": "../assets/Skills/c sharp.png",
+            "tooltip": "C Sharp"
+          },
+          {
+            "icon": "../assets/Skills/dotnetcore.png",
+            "tooltip": "Asp.Net Core"
+          },
+          { "icon": "../assets/Skills/sql.png", "tooltip": "SQL" },
+          { "icon": "../assets/Skills/git.png", "tooltip": "Git" },
+          {
+            "icon": "../assets/Skills/vs code.png",
+            "tooltip": "VS Code"
+          }
+        ]
+      }
+    ]
   }
 }

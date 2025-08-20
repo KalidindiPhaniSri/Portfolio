@@ -30,11 +30,17 @@ const Projects: React.FC<ProjectsProps> = ({ onVisible }) => {
     if (inView) onVisible();
   }, [inView, onVisible]);
 
-  const Card: React.FC<CardProps> = ({ index }) => {
+  const ProjectSection: React.FC<CardProps> = ({ index }) => {
     const { image, title, text, tech, githubLink } =
       data.projects.sections[index];
     return (
-      <>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        gap={2}
+        data-testid="project-section"
+        alignItems="center"
+      >
         {/* {Image} */}
         <Grow in={inView} timeout={1000}>
           <Grid size={{ xs: 3, md: 4 }}>
@@ -48,8 +54,8 @@ const Projects: React.FC<ProjectsProps> = ({ onVisible }) => {
               <img
                 src={Images[image] ?? ""}
                 alt={title}
-                height={isMobile ? 75 : 150}
-                width={isMobile ? 100 : 250}
+                height={isMobile ? 50 : 150}
+                width={isMobile ? 75 : 250}
               />
             </IconButton>
           </Grid>
@@ -110,7 +116,7 @@ const Projects: React.FC<ProjectsProps> = ({ onVisible }) => {
             </Stack>
           </Grid>
         </Grow>
-      </>
+      </Stack>
     );
   };
 
@@ -122,7 +128,7 @@ const Projects: React.FC<ProjectsProps> = ({ onVisible }) => {
       />
       <Grid container spacing={{ xs: 2, md: 3 }} alignItems="center">
         {data.projects.sections.map((obj, index) => (
-          <Card index={index} key={obj.title} />
+          <ProjectSection index={index} key={obj.id} />
         ))}
       </Grid>
     </section>
