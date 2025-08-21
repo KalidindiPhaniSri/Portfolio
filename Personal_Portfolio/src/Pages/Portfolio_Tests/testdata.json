@@ -17,8 +17,8 @@
     "imgname": "../assets/home.jpg",
     "intro": [
       "I'm a Full Stack Developer with 2 years of experience building enterprise-grade web applications that balance performance, scalability, and intuitive design",
-      "At Inventiz, I've contributed to internal tools for Walmart — including a Supply Chain Management System and a Deduction Management Tool. I worked across the stack, developing robust frontend architectures, integrating REST APIs, and ensuring smooth data flow between services",
-      "On the frontend, I specialize in React.js, TypeScript, Redux, and modern UI libraries like Material UI and Kendo UI. My work focuses on responsiveness, maintainability, and performance — using techniques like lazy loading, virtual scrolling, and unit testing for long-term reliability",
+      "At Inventiz, I've contributed to internal tools for Walmart  including a Supply Chain Management System and a Deduction Management Tool. I worked across the stack, developing robust frontend architectures, integrating REST APIs, and ensuring smooth data flow between services",
+      "On the frontend, I specialize in React.js, TypeScript, Redux, and modern UI libraries like Material UI and Kendo UI. My work focuses on responsiveness, maintainability, and performance  using techniques like lazy loading, virtual scrolling, and unit testing for long-term reliability",
       "On the backend, I've worked with C#, .NET Core, and SQL, building secure APIs and implementing authentication flows using tools like Auth0. I enjoy working in Agile teams and translating technical goals into real-world impact"
     ],
     "card": {
@@ -159,7 +159,7 @@
         "image": "../assets/Experience/deductions.PNG",
         "role": "Software Engineer",
         "company": "Inventiz",
-        "duration": "February 2024 - Present",
+        "duration": "November 2023 - September 2024",
         "iconKey": "fullTime",
         "text": "Designed and developed a tool using Tesseract OCR and C# to extract data from scanned PODs, reducing manual effort and improving accuracy. Built a grid-based document management interface with advanced search for efficient upload, retrieval, and management. Created interactive dashboards with charts and KPIs for real-time deduction tracking and insights. Collaborated with the team to ensure seamless development and consistent UI/UX across the application.",
         "tech": [
