@@ -1,5 +1,5 @@
 import Portfolio from "./Pages/Portfolio/Portfolio";
-import "./app.css";
+import "./App.css";
 
 const App = () => {
   return <Portfolio />;
