@@ -27,19 +27,10 @@ interface ContactProps {
   onVisible: () => void;
 }
 
-const ContactForm = memo(() => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [sending, setSending] = useState(false);
-  const [snackBarProps, setSnackBarProps] = useState<SnackBarProps>({
-    open: false,
-    message: "",
-    severity: "info",
-  });
+const Contact: React.FC<ContactProps> = ({ onVisible }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const { ref, inView } = useInView(data.intersectionObserver);
   const themePalette = createTheme({
     palette: {
       warning: {
@@ -49,50 +40,75 @@ const ContactForm = memo(() => {
     },
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
-  };
+  useEffect(() => {
+    if (inView) onVisible();
+  }, [inView, onVisible]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-
-    emailjs
-      .send(
-        "service_m328tfc", // EmailJS service ID
-        "template_s4pfbad", // EmailJS template ID
-        {
-          from_name: form.name,
-          from_email: form.email,
-          subject: form.subject,
-          message: form.message,
+  const ContactForm = memo(() => {
+    const [form, setForm] = useState({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+    const [sending, setSending] = useState(false);
+    const [snackBarProps, setSnackBarProps] = useState<SnackBarProps>({
+      open: false,
+      message: "",
+      severity: "info",
+    });
+    const themePalette = createTheme({
+      palette: {
+        warning: {
+          main: "#ff9800",
+          contrastText: "#fff",
         },
-        "ni_bQYB83jUxpT0PZ" // EmailJS public key
-      )
-      .then(() => {
-        setSending(false);
-        setSnackBarProps({
-          open: true,
-          severity: "success",
-          message: "Message sent successfully!",
-        });
-        setForm({ name: "", email: "", subject: "", message: "" });
-      })
-      .catch(() => {
-        setSending(false);
-        alert("Failed to send message. Please try again.");
-      });
-  };
+      },
+    });
 
-  return (
-    <ThemeProvider theme={themePalette}>
-      <Box sx={{ p: 3 }}>
+    const handleChange = (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+      const { name, value } = e.target;
+      setForm((prevForm) => ({
+        ...prevForm,
+        [name]: value,
+      }));
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      setSending(true);
+
+      emailjs
+        .send(
+          "service_m328tfc", // EmailJS service ID
+          "template_s4pfbad", // EmailJS template ID
+          {
+            name: form.name,
+            email: form.email,
+            subject: form.subject,
+            message: form.message,
+          },
+          "ni_bQYB83jUxpT0PZ" // EmailJS public key
+        )
+        .then(() => {
+          setSending(false);
+          setSnackBarProps({
+            open: true,
+            severity: "success",
+            message: "Message sent successfully!",
+          });
+          setForm({ name: "", email: "", subject: "", message: "" });
+        })
+        .catch(() => {
+          setSending(false);
+          alert("Failed to send message. Please try again.");
+        });
+    };
+
+    return (
+      <ThemeProvider theme={themePalette}>
         <form onSubmit={handleSubmit} className="contact-form">
           <Stack direction="row" gap={2}>
             <TextField
@@ -153,56 +169,43 @@ const ContactForm = memo(() => {
             </Button>
           </Box>
         </form>
-      </Box>
-      <SnackBar
-        snackBarProps={snackBarProps}
-        setSnackBarProps={setSnackBarProps}
-      />
-    </ThemeProvider>
-  );
-});
-
-const ContactDetails = memo(() => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  return (
-    <>
-      <Box textAlign="center" sx={{ pb: 2, pt: isMobile ? 2 : 7.5 }}>
-        <img
-          src={Images[data.contact.chatIcon] ?? ""}
-          alt={data.contact.title[0]}
-          height={isMobile ? 50 : 75}
-          width={isMobile ? 50 : 75}
+        <SnackBar
+          snackBarProps={snackBarProps}
+          setSnackBarProps={setSnackBarProps}
         />
-      </Box>
-      <Stack direction="column">
-        <Stack direction="row" gap={1}>
-          <MailOutlineIcon fontSize="medium" />
-          <TextBlock text={"phanisri.kalidindi@gmail.com"} size="lg" />
-        </Stack>
-        <Stack direction="row" gap={1}>
-          <PlaceOutlinedIcon fontSize="medium" />
-          <TextBlock text={"Andhra Pradesh, India"} size="lg" />
-        </Stack>
-      </Stack>
-    </>
-  );
-});
-
-const Contact: React.FC<ContactProps> = ({ onVisible }) => {
-  const { ref, inView } = useInView(data.intersectionObserver);
-  const themePalette = createTheme({
-    palette: {
-      warning: {
-        main: "#ff9800",
-        contrastText: "#fff",
-      },
-    },
+      </ThemeProvider>
+    );
   });
 
-  useEffect(() => {
-    if (inView) onVisible();
-  }, [inView, onVisible]);
+  const ContactDetails = memo(() => {
+    return (
+      <Stack
+        direction="column"
+        alignItems="center"
+        gap={0}
+        sx={{ pb: isMobile ? 2 : 0 }}
+      >
+        <Box textAlign="center" sx={{ pb: 2, pt: isMobile ? 2 : 7.5 }}>
+          <img
+            src={Images[data.contact.chatIcon] ?? ""}
+            alt={data.contact.title[0]}
+            height={isMobile ? 50 : 75}
+            width={isMobile ? 50 : 75}
+          />
+        </Box>
+        <Stack direction="column">
+          <Stack direction="row" gap={1}>
+            <MailOutlineIcon fontSize="medium" />
+            <TextBlock text={"phanisri.kalidindi@gmail.com"} size="lg" />
+          </Stack>
+          <Stack direction="row" gap={1}>
+            <PlaceOutlinedIcon fontSize="medium" />
+            <TextBlock text={"Andhra Pradesh, India"} size="lg" />
+          </Stack>
+        </Stack>
+      </Stack>
+    );
+  });
 
   return (
     <section ref={ref} id="contact" className="contact">
@@ -212,11 +215,16 @@ const Contact: React.FC<ContactProps> = ({ onVisible }) => {
           endText={data.contact.title[1]}
         />
         <TextBlock text={data.contact.text} size="lg" />
-        <Grid container spacing={0} justifyContent="center">
-          <Grid size={{ xs: 4.5, md: 2.5 }}>
+        <Grid
+          container
+          spacing={0}
+          justifyContent="center"
+          gap={!isMobile ? 6 : 0}
+        >
+          <Grid size={{ xs: 12, md: 2.5 }}>
             <ContactDetails />
           </Grid>
-          <Grid size={{ xs: 12, md: 6 }} sx={{ pl: 3 }}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <ContactForm />
           </Grid>
         </Grid>
