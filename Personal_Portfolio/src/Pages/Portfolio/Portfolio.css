@@ -77,6 +77,11 @@
 .top-menu .navbtn {
   color: white;
 }
+@media (max-width: 900px) {
+  html {
+    scroll-padding-top: 56px; /* smaller AppBar height on mobile */
+  }
+}
 
 .home {
   height: calc(100vh - 4rem);

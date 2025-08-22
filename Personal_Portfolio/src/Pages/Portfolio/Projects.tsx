@@ -24,6 +24,7 @@ interface CardProps {
 const Projects: React.FC<ProjectsProps> = ({ onVisible }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isTabular = useMediaQuery(theme.breakpoints.down("lg"));
   const { ref, inView } = useInView(data.intersectionObserver);
 
   useEffect(() => {
@@ -42,27 +43,29 @@ const Projects: React.FC<ProjectsProps> = ({ onVisible }) => {
         alignItems="center"
       >
         {/* {Image} */}
-        <Grow in={inView} timeout={1000}>
-          <Grid size={{ xs: 3, md: 4 }}>
-            <IconButton
-              component="a"
-              href={githubLink}
-              target="_blank"
-              aria-label="GitHub"
-              className="github-icon"
-            >
-              <img
-                src={Images[image] ?? ""}
-                alt={title}
-                height={isMobile ? 50 : 150}
-                width={isMobile ? 75 : 250}
-              />
-            </IconButton>
-          </Grid>
-        </Grow>
+        {!isMobile && (
+          <Grow in={inView} timeout={1000}>
+            <Grid size={{ xs: 12, md: 3 }}>
+              <IconButton
+                component="a"
+                href={githubLink}
+                target="_blank"
+                aria-label="GitHub"
+                className="github-icon"
+              >
+                <img
+                  src={Images[image] ?? ""}
+                  alt={title}
+                  height={isTabular ? 100 : 125}
+                  width={isTabular ? 165 : 200}
+                />
+              </IconButton>
+            </Grid>
+          </Grow>
+        )}
         {/* {Content} */}
         <Grow in={inView} timeout={1000}>
-          <Grid size={{ xs: 9, md: 8 }}>
+          <Grid size={{ xs: 12, md: 9 }}>
             <Stack textAlign={"start"}>
               <Stack direction="row" justifyContent="space-between">
                 <TextBlock
@@ -92,6 +95,7 @@ const Projects: React.FC<ProjectsProps> = ({ onVisible }) => {
                 flexWrap={"wrap"}
                 gap={{ xs: 2, md: 3 }}
                 justifyContent="end"
+                sx={{ pt: 1 }}
               >
                 {tech.map((skill, ind) => {
                   return (

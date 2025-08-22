@@ -51,15 +51,11 @@ const AboutCard: React.FC<AboutCardProps> = ({ desktopMode, inView }) => {
 
 const Intro: React.FC<AboutCardProps> = ({ inView }) => {
   return (
-    <Stack
-      direction="column"
-      gap={{ xs: 1, sm: 1.5, md: 2 }}
-      data-testid="about-intro"
-    >
-      {data.about.intro.map(({ text, delay }) => {
+    <Stack direction="column" gap={{ xs: 1, sm: 1.5, md: 2 }}>
+      {data.about.intro.map(({ text, delay }, ind) => {
         return (
           <Grow in={inView} timeout={delay}>
-            <div>
+            <div data-testid="about-intro" key={ind}>
               <TextBlock size="md" textAlign="justify" text={text} />
             </div>
           </Grow>
@@ -107,7 +103,7 @@ const About: React.FC<AboutProps> = ({ onVisible }) => {
           alignItems="center"
           spacing={3}
         >
-          <Grid size={8}>
+          <Grid size={10}>
             <AboutCard desktopMode={isDesktop} inView={inView} />
           </Grid>
           <Grid size={12}>

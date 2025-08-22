@@ -9,10 +9,14 @@ describe("About", () => {
   });
   it("renders about section text", () => {
     render(<About onVisible={() => {}} />);
-    const introSection = screen.getByTestId("about-intro");
+    const introSection = screen.getAllByTestId("about-intro");
     {
-      data.about.intro.map((text) => {
-        expect(introSection).toHaveTextContent(text);
+      introSection.map((textEle, ind) => {
+        const expectedText = data.about.intro[ind].text
+          .replace(/\s+/g, " ")
+          .trim();
+        const actualText = textEle.textContent?.replace(/\s+/g, " ").trim();
+        expect(actualText).toBe(expectedText);
       });
     }
   });

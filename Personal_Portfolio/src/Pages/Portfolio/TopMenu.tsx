@@ -93,7 +93,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ activeSection, scrolled }) => {
       data-testid="mobile-nav"
     >
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        Phani
       </Typography>
       <Divider />
       {renderDrawerList()}

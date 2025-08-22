@@ -28,92 +28,17 @@ interface HeaderDataProps {
   iconKey: string;
 }
 interface HeaderProps {
-  inView: boolean;
-  isMobile: boolean;
   data: HeaderDataProps;
 }
 interface ContentPrps {
-  inView: boolean;
-  isMobile: boolean;
   text: string;
   tech: { icon: string; tooltip: string }[];
 }
 
-const Header: React.FC<HeaderProps> = ({ inView, isMobile, data }) => {
-  return (
-    <Grow in={inView} timeout={1000}>
-      <Stack className="header-section" direction="row">
-        <Stack direction="row" gap={{ xs: 2, lg: 3 }}>
-          <img
-            src={Images[data.image] ?? ""}
-            alt={data.title}
-            height={isMobile ? 30 : 50}
-            width={isMobile ? 30 : 50}
-          />
-          <Stack direction="column" alignItems="start">
-            <Tooltip title={data.titleTooltip} placement="top" arrow>
-              <TextBlock
-                size="lg"
-                fontWeight="bold"
-                text={data.title}
-                className="typo"
-              />
-            </Tooltip>
-            <TextBlock
-              size="md"
-              text={data.role + " - " + data.company}
-              className="typo"
-            />
-          </Stack>
-        </Stack>
-
-        <Stack gap={1} direction="column" alignItems="end">
-          <TextBlock size="sm" text={data.duration} className="typo" />
-        </Stack>
-      </Stack>
-    </Grow>
-  );
-};
-
-const Content: React.FC<ContentPrps> = ({ inView, isMobile, text, tech }) => {
-  return (
-    <Grow in={inView} timeout={1000}>
-      <Stack direction="column" gap={{ xs: 2, md: 3 }}>
-        <TextBlock size="md" text={text} textAlign="justify" className="desc" />
-        <Stack
-          direction="row"
-          flexWrap={"wrap"}
-          gap={{ xs: 2, md: 3 }}
-          justifyContent="end"
-        >
-          {tech.map((skill, ind) => {
-            return (
-              <Tooltip
-                title={skill.tooltip}
-                placement="top"
-                arrow
-                style={{ cursor: "pointer" }}
-                key={ind}
-              >
-                <img
-                  src={Images[skill.icon] ?? ""}
-                  alt={skill.tooltip}
-                  height={isMobile ? 15 : 25}
-                  width={isMobile ? 15 : 25}
-                  key={ind}
-                />
-              </Tooltip>
-            );
-          })}
-        </Stack>
-      </Stack>
-    </Grow>
-  );
-};
-
 const Experience: React.FC<ExperienceProps> = ({ onVisible }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isTab = useMediaQuery(theme.breakpoints.down("lg"));
 
   const { ref, inView } = useInView(data.intersectionObserver);
 
@@ -138,6 +63,87 @@ const Experience: React.FC<ExperienceProps> = ({ onVisible }) => {
       default:
         return <WorkIcon />;
     }
+  };
+
+  const Header: React.FC<HeaderProps> = ({ data }) => {
+    return (
+      <Grow in={inView} timeout={1000}>
+        <Stack className="header-section" direction="row">
+          <Stack direction="row" gap={{ xs: 2, lg: 3 }}>
+            <img
+              src={Images[data.image] ?? ""}
+              alt={data.title}
+              height={isMobile ? 30 : 50}
+              width={isMobile ? 30 : 50}
+            />
+            <Stack direction="column" alignItems="start">
+              <Tooltip title={data.titleTooltip} placement="top" arrow>
+                <TextBlock
+                  size="lg"
+                  fontWeight="bold"
+                  text={data.title}
+                  className="typo"
+                />
+              </Tooltip>
+              <TextBlock
+                size="md"
+                text={data.role + " - " + data.company}
+                className="typo"
+              />
+              {isTab && (
+                <TextBlock size="sm" text={data.duration} className="typo" />
+              )}
+            </Stack>
+          </Stack>
+          {!isTab && (
+            <Stack gap={1} direction="column" alignItems="end">
+              <TextBlock size="sm" text={data.duration} className="typo" />
+            </Stack>
+          )}
+        </Stack>
+      </Grow>
+    );
+  };
+
+  const Content: React.FC<ContentPrps> = ({ text, tech }) => {
+    return (
+      <Grow in={inView} timeout={1000}>
+        <Stack direction="column" gap={{ xs: 2, md: 3 }}>
+          <TextBlock
+            size="md"
+            text={text}
+            textAlign="justify"
+            className="desc"
+          />
+          <Stack
+            direction="row"
+            flexWrap={"wrap"}
+            gap={{ xs: 2, md: 3 }}
+            justifyContent="end"
+          >
+            {tech.map((skill, ind) => {
+              return (
+                <Tooltip
+                  title={skill.tooltip}
+                  placement="top"
+                  arrow
+                  style={{ cursor: "pointer" }}
+                  key={ind}
+                >
+                  <img
+                    src={Images[skill.icon] ?? ""}
+                    alt={skill.tooltip}
+                    height={isMobile ? 15 : 25}
+                    width={isMobile ? 15 : 25}
+                    key={ind}
+                  />
+                </Tooltip>
+              );
+            })}
+          </Stack>
+        </Stack>
+      </Grow>
+    );
   };
 
   return (
@@ -176,15 +182,10 @@ const Experience: React.FC<ExperienceProps> = ({ onVisible }) => {
                     isLeft ? "left" : "right"
                   }`}
                 >
-                  <Header inView={inView} data={item} isMobile={isMobile} />
+                  <Header data={item} />
                   {/* Hidden extra content, revealed on hover */}
                   <Box className="description">
-                    <Content
-                      inView={inView}
-                      text={item.text}
-                      tech={item.tech}
-                      isMobile={isMobile}
-                    />
+                    <Content text={item.text} tech={item.tech} />
                   </Box>
                 </Box>
               </Box>

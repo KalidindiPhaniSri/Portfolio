@@ -1,13 +1,15 @@
 import { render, within, screen } from "@testing-library/react";
 import Projects from "../Portfolio/Projects";
 import data from "./testdata.json";
+import { SetScreenSize } from "../../Utils/ReusableComponents";
 
 describe("Projects Component", () => {
   it("renders title", () => {
     const { container } = render(<Projects onVisible={() => {}} />);
     expect(container).toHaveTextContent(data.projects.title);
   });
-  it("renders all project sections", async () => {
+  it("renders all project sections (desktop)", async () => {
+    SetScreenSize(1024);
     render(<Projects onVisible={() => {}} />);
     const sections = await screen.findAllByTestId("project-section");
     expect(sections.length).toBe(data.projects.sections.length);

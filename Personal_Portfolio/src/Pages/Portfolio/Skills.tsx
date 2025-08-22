@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Grid, Zoom } from "@mui/material";
+import { Box, Grid, useMediaQuery, useTheme, Zoom } from "@mui/material";
 import { Images } from "../../Utils/Helpers";
 import data from "./data.json";
 import { SectionHeader, TextBlock } from "../../Utils/ReusableComponents";
@@ -14,6 +14,9 @@ interface TilesProps {
 
 const Skills: React.FC<SkillsProps> = ({ onVisible }) => {
   const { ref, inView } = useInView(data.intersectionObserver);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   useEffect(() => {
     if (inView) onVisible();
   }, [inView, onVisible]);
@@ -23,7 +26,12 @@ const Skills: React.FC<SkillsProps> = ({ onVisible }) => {
     const Cards = (
       <Grid size={{ xs: 3, sm: 2.5, md: 2, lg: 1.5 }} className="card-content">
         <Box sx={{ py: { xs: 0.5, md: 1 } }}>
-          <img src={Images[imgName] ?? ""} alt={name} height={50} width={50} />
+          <img
+            src={Images[imgName] ?? ""}
+            alt={name}
+            height={isMobile ? 25 : 40}
+            width={isMobile ? 25 : 40}
+          />
         </Box>
         <TextBlock className="skill-name" text={name} size="md" />
       </Grid>
